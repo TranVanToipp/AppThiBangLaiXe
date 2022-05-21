@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_button.xml" value="0.124" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_cauhoi.xml" value="0.124" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/backgroung_cautraloi.xml" value="0.124" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/round_mau_home.xml" value="0.124" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_kiem_tra.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_luyen_tap.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_main.xml" value="0.12" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab__home_.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab__test_.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab__uses_.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab_practice_.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/layout_header_toolbar_nav.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu__homepage.xml" value="0.20416666666666666" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu_toobar_nav.xml" value="0.20416666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
