@@ -52,7 +52,7 @@ public class Tab_Test_Fragment extends Fragment {
     ArrayList<cauhoi_traloi> mangcauhoi;
     Cauhoi_traloiAdapter cauhoiTraloiAdapter;
     int page = 1;
-
+    private View mView;
     int id = 0;
 
 
@@ -100,6 +100,9 @@ public class Tab_Test_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mangcauhoi = new ArrayList<>();
+        cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(),mangcauhoi);
+        Getdulieucauhoi_traloi(page);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -113,8 +116,8 @@ public class Tab_Test_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tab__test_,container,false);
 
 
-        mangcauhoi = new ArrayList<>();
-        cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(),mangcauhoi);
+//        mangcauhoi = new ArrayList<>();
+//        cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(),mangcauhoi);
 
 
 
@@ -124,9 +127,10 @@ public class Tab_Test_Fragment extends Fragment {
 
         toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
 
-            Getdulieucauhoi_traloi(page);
 
-        return inflater.inflate(R.layout.fragment_tab__test_, container, false);
+
+        //View view = inflater.inflate(R.layout.fragment_tab__test_, container, false);
+        return view;
     }
 
     private void XuliToobar() {

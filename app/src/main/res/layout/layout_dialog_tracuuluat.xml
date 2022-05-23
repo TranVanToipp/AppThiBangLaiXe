@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/ldt_txt1"
+        android:textSize="20dp"
+        android:text="Chúng tôi đang cập nhật luật sửa đổi mới nhất hiện nay, chức năng này sẽ có mặt ở phiên bản tiếp theo.\nRất mong các bạn thông cảm.\nXin cảm ơn!!!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

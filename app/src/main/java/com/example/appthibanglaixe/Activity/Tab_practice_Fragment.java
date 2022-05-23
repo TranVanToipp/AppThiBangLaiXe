@@ -1,12 +1,25 @@
 package com.example.appthibanglaixe.Activity;
 
+import static com.example.appthibanglaixe.R.menu.menu_luyentap;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.appthibanglaixe.R;
 
@@ -17,6 +30,7 @@ import com.example.appthibanglaixe.R;
  */
 public class Tab_practice_Fragment extends Fragment {
 
+    Toolbar toobarluyentap;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,16 +65,84 @@ public class Tab_practice_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_practice_, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_practice_, container, false);
+        toobarluyentap = view.findViewById(R.id.ftp_toobar_luyenlap);
+        Xulitoobarluyentap();
+        return view;
+    }
+
+    private void Xulitoobarluyentap() {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toobarluyentap);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toobarluyentap.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.finish();
+            }
+        });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_luyentap,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ml_huongdan:
+                Showhuongdanthi();
+                break;
+            default:
+                break;
+        }
+        //return super.onOptionsItemSelected(item);
+        return false;
+    }
+
+    public void Showhuongdanthi() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_huongdanthi_dialog, null, false);
+
+        TextView txt1 = view.findViewById(R.id.lhd_txt1);
+        TextView txt2 = view.findViewById(R.id.lhd_txt2);
+        TextView txt3 = view.findViewById(R.id.lhd_txt3);
+
+
+        builder.setView(view);
+        builder.setTitle("Hướng dẫn làm bài thi")
+                .setNegativeButton("Đã hiểu", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
+
+    //Xử lí dialog()
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 }

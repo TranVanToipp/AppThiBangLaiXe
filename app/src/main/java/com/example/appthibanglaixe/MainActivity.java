@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.appthibanglaixe.Activity.Tab_practice_Fragment;
 import com.example.appthibanglaixe.Adapter.ViewPageAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPage;
     private BottomNavigationView mbottomNavigationView;
     // khai báo toobar
+    Toolbar toobar;
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -34,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void XuLiToolbar() {
-        Toolbar toolbar = findViewById(R.id.toobar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toobar);
+        setSupportActionBar(toobar);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toobar, R.string.nav_drawer_open, R.string.nav_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         mbottomNavigationView.getMenu().findItem(R.id.mh_menu_practice).setChecked(true);
+//                        Tab_practice_Fragment.Showhuongdanthi();
                         break;
                     case 3:
                         mbottomNavigationView.getMenu().findItem(R.id.mh_menu_uses).setChecked(true);

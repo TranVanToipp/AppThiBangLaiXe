@@ -5,18 +5,34 @@
       <map>
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_button.xml" value="0.124" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_cauhoi.xml" value="0.124" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_home.xml" value="0.125" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_khonghienthi.xml" value="0.125" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/backgroung_cautraloi.xml" value="0.124" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_favorite_24.xml" value="0.125" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.125" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/round_mau_home.xml" value="0.124" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_bien_bao.xml" value="0.22" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_hoc_ly_thuyet.xml" value="0.1" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_kiem_tra.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_luyen_tap.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_main.xml" value="0.12" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_meo_thi.xml" value="0.1" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/cus_bienbao.xml" value="0.15443840579710144" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_bien_chi_dan.xml" value="0.15443840579710144" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_bien_hieu_lenh.xml" value="0.15443840579710144" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_ly_thuyet.xml" value="0.12760416666666666" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab__home_.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab__test_.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab__uses_.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_tab_practice_.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_thuc_hanh.xml" value="0.12760416666666666" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/layout_dialog_tracuuluat.xml" value="0.12760416666666666" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/layout_header_toolbar_nav.xml" value="0.15217391304347827" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/layout_huongdanthi_dialog.xml" value="0.12760416666666666" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/layout_luyentap.xml" value="0.1" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu__homepage.xml" value="0.20416666666666666" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu_luyentap.xml" value="0.1" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu_toobar_nav.xml" value="0.20416666666666666" />
       </map>
     </option>

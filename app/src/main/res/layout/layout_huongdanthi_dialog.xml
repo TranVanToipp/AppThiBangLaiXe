@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/lhd_txt1"
+        android:textSize="20dp"
+
+        android:layout_width="match_parent"
+        android:text="Đề thi bằng lái hạng A1 bao gồm 25 câu hỏi làm bài trong thời gian 19 phút.\n"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/lhd_txt2"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:text="Mỗi đề thi đểu có câu hỏi điểm liệt, nếu thí sinh trả lời sai câu hỏi điểm liệt thì sẽ bị trược.\n"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/lhd_txt3"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:text="Để vượt qua bài thi, thí sinh cần phải trả lời đúng 21/ 25 câu hỏi và không sai câu điểm liệt nào."
+        android:layout_height="wrap_content"/>
+</LinearLayout>
