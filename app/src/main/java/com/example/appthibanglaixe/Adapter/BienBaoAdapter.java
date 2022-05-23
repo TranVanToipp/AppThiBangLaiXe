@@ -60,8 +60,8 @@ public class BienBaoAdapter extends BaseAdapter {
         }
         bienbao bb = (bienbao) getItem(position);
         viewHolder.txtnoidung.setText(bb.getNoidungbienbao());
-        Glide.with(context).load(bb.getHinhbienbao()).placeholder(R.drawable.icon).error(R.drawable.hinhanhlythuethome).into(viewHolder.imgbienbao);
-
+        //Glide.with(context).load(bb.getHinhbienbao()).placeholder(R.drawable.icon).error(R.drawable.hinhanhlythuethome).into(viewHolder.imgbienbao);
+        viewHolder.imgbienbao.setTag(bb.getHinhbienbao());
 //        String tenhih= bb.getHinhbienbao();
 //        viewHolder.imgbienbao.setBackgroundResource();
         return convertView;
