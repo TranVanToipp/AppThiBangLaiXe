@@ -7,8 +7,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.appthibanglaixe.Adapter.BienBaoAdapter;
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.model.bienbao;
+import com.example.appthibanglaixe.uliti.Server;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,7 +30,9 @@ import com.example.appthibanglaixe.R;
  * create an instance of this fragment.
  */
 public class BienChiDanFragment extends Fragment {
-
+    ListView lstbienbaochidan;
+    ArrayList<bienbao> arrayListBienBaoChiDan;
+    BienBaoAdapter bienBaoAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,7 +76,43 @@ public class BienChiDanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_bien_chi_dan, container, false);
+        lstbienbaochidan = view.findViewById(R.id.fbc_lst_bienbaochidan);
+        XulijsonBienBaoChiDan();
+        arrayListBienBaoChiDan = new ArrayList<>();
+        bienBaoAdapter = new BienBaoAdapter(getActivity(), arrayListBienBaoChiDan);
+        lstbienbaochidan.setAdapter(bienBaoAdapter);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bien_chi_dan, container, false);
+        return view;
+    }
+
+    private void XulijsonBienBaoChiDan() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanbienbao3, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response != null){
+                    String hinhanh = "";
+                    String noidung = "";
+                    for(int i = 0 ;i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            hinhanh = jsonObject.getString("hinhbienbao");
+                            noidung = jsonObject.getString("noidungbienbao");
+                            arrayListBienBaoChiDan.add(new bienbao(hinhanh, noidung));
+                            bienBaoAdapter.notifyDataSetChanged();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
 }

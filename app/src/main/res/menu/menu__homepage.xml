@@ -2,10 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/mh_menu_homepage" android:title="Trang chủ"
         android:icon="@drawable/ic_baseline_home_24"/>
-    <item android:id="@+id/mh_menu_test" android:title="Kiểm tra"
+    <item android:id="@+id/mh_menu_test" android:title="Thi sát hoạch"
         android:icon="@drawable/ic_baseline_playlist_add_check_24"/>
-    <item android:id="@+id/mh_menu_practice" android:title="Luyện tập"
-        android:icon="@drawable/ic_baseline_self_improvement_24"/>
-    <item android:id="@+id/mh_menu_uses" android:title="Tôi"
-        android:icon="@drawable/ic_baseline_person_24"/>
+    <item android:id="@+id/mh_menu_practice" android:title="tìm kiếm"
+        android:icon="@drawable/ic_baseline_search_24"/>
+
 </menu>

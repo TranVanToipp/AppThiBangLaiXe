@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_cauhoi"
+    android:padding="10dp"
     tools:context=".Activity.FragmentMeoThi.LyThuyetFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ExpandableListView
+        android:id="@+id/expandablelistview"
         android:layout_width="match_parent"
-        android:textSize="50dp"
         android:layout_height="match_parent"
-        android:text="Mẹo lý thuyết" />
+        android:divider="@color/purple_500"
+        android:scrollbars="none"
+        android:dividerHeight="1dp"
+        />
 
 </FrameLayout>

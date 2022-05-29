@@ -17,9 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#009688"
-        app:itemTextColor="@color/color_navigation_home"
+        android:background="#fff"
         app:itemIconTint="@color/color_navigation_home"
-        app:menu= "@menu/menu__homepage"
-        app:labelVisibilityMode="labeled"/>
+        app:itemTextColor="@color/color_navigation_home"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu__homepage" />
 </RelativeLayout>

@@ -7,8 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.Tab_Home_Fragment"
     >
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -20,7 +18,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/ftt_toobar"
                 android:layout_width="match_parent"
-                android:background="@color/purple_700"
+                android:background="#0BA720"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:layout_height="?attr/actionBarSize"/>
             <FrameLayout

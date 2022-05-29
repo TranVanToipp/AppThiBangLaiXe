@@ -51,7 +51,7 @@ public class BienBaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bien_bao);
         Anhxa();
         XulitoobarBienbao();
-        Xulijsonbienbao();
+       // Xulijsonbienbao();
         //Xử lí chuyển các page của màn hình biển báo
         adapter = new Fragment_BienBao_Adapter(this);
         mviewpage.setAdapter(adapter);
@@ -65,7 +65,7 @@ public class BienBaoActivity extends AppCompatActivity {
                         break;
 
                     case 1:
-                        tab.setText("Biển hiệu Lệnh");
+                        tab.setText("Biển Hiệu Lệnh");
                         break;
 
                     case 2:
@@ -79,7 +79,7 @@ public class BienBaoActivity extends AppCompatActivity {
 
     private void Xulijsonbienbao() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanbienbao, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanbienbao1, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 if (response != null) {

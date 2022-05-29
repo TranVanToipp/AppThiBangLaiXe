@@ -7,68 +7,43 @@
     android:layout_height="match_parent"
 
     tools:context=".Activity.Tab_Test_Fragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
+        app:titleTextColor="@color/white"
+        android:background="@color/purple_500"
+        android:id="@+id/ftp_toobar_luyenlap"
         android:layout_width="match_parent"
 
-        android:layout_height="60dp">
-
-        <ImageView
-            android:id="@+id/backBtn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            />
-
-        <TextView
-            android:id="@+id/toppicname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="Làm bài kiểm tra"/>
-
+        android:layout_height="?attr/actionBarSize">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="15dp" />
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/ftt_txt_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
+                android:layout_marginRight="30dp"
+                android:textSize="17dp"
                 android:text="00:59"
                 android:textColor="#FFC107" />
-
+            <TextView
+                android:id="@+id/ftt_txt_socauhoi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/round_mau_home"
+                android:elevation="1dp"
+                android:text="(câu 1/25)"
+                android:textColor="#1F6888" />
         </LinearLayout>
-    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/ftt_txt_socautraloi"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/round_mau_home"
-        android:elevation="1dp"
-        android:gravity="center"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:textColor="#1F6888"
-        android:text="1/25"/>
+    </androidx.appcompat.widget.Toolbar>
+    <!-- TODO: Update blank fragment layout -->
+
+
+
 
     <TextView
         android:id="@+id/ftt_txt_noidungcauhoi"
@@ -80,10 +55,16 @@
         android:text="Nội dung câu hỏi ..."
         android:background="@drawable/background_cauhoi"
         android:gravity="center"
+        android:padding="5dp"
         android:minHeight="10dp"
-        android:padding="20dp"
         android:textColor="#CC000000"
         android:textSize="16sp"/>
+    <ImageView
+        android:id="@+id/ftt_imganhcauhoi"
+        android:src="@drawable/icon"
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ftt_txt_cautraloi1"

@@ -8,7 +8,7 @@
     tools:context=".Activity.BienBaoActivity">
     <androidx.appcompat.widget.Toolbar
         app:titleTextColor="@color/white"
-        android:background="@color/purple_500"
+        android:background="#0BA720"
         app:title="Biển báo giao thông"
         android:id="@+id/abb_toobargiaothong"
         android:layout_width="match_parent"

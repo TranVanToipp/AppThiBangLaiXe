@@ -9,7 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         app:titleTextColor="@color/white"
-        android:background="@color/purple_500"
+        android:background="#0BA720"
         app:title="Mẹo thi kết quả cao"
         android:id="@+id/amt_toobar_meothi"
         android:layout_width="match_parent"

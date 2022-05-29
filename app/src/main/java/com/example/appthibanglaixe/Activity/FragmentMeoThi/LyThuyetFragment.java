@@ -4,11 +4,31 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.appthibanglaixe.Adapter.MeoThiAdapter;
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.model.meothiGroup;
+import com.example.appthibanglaixe.model.meothiIterm;
+import com.example.appthibanglaixe.uliti.Server;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,7 +36,11 @@ import com.example.appthibanglaixe.R;
  * create an instance of this fragment.
  */
 public class LyThuyetFragment extends Fragment {
-
+    private ExpandableListView expandableListView;
+    ArrayList<meothiGroup> mListGroup;
+    ArrayList<meothiIterm> Itermlist;
+     Map<meothiGroup, ArrayList<meothiIterm>> mListIterm;
+    MeoThiAdapter meothiAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -25,6 +49,7 @@ public class LyThuyetFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+//    private Object meothiIterm;
 
     public LyThuyetFragment() {
         // Required empty public constructor
@@ -60,7 +85,98 @@ public class LyThuyetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ly_thuyet, container, false);
+        View view = inflater.inflate(R.layout.fragment_ly_thuyet, container, false);
+        expandableListView = view.findViewById(R.id.expandablelistview);
+        //XuLiJsonLyThuyet();
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanlytuyet, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response != null){
+                    int idmeo = 0;
+                    String nd_thi = "";
+                    String loai = "";
+
+                    for(int i = 0; i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            idmeo = jsonObject.getInt("idmeothi");
+                            nd_thi = jsonObject.getString("noidungmeothi");
+                            loai = jsonObject.getString("loai");
+                            mListGroup.add(new meothiGroup(idmeo,loai));
+                            //Itermlist.add(new meothiIterm(idmeo, nd_thi));
+                            Itermlist.add(new meothiIterm(idmeo, nd_thi));
+                            meothiAdapter.notifyDataSetChanged();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+        mListGroup = new ArrayList<>();
+        Itermlist = new ArrayList<>();
+//        itermmeo = (ArrayList<meothiIterm>) mListIterm;
+//        meothiIterm = itermmeo;
+        mListIterm = getListIterm();
+        ///itemlisst = mlisstiterm
+        mListGroup = new ArrayList<>(mListIterm.keySet());
+        meothiAdapter = new MeoThiAdapter(getActivity(), mListGroup, mListIterm);
+        expandableListView.setAdapter(meothiAdapter);
+        return view;
+    }
+
+    private Map<meothiGroup, ArrayList<meothiIterm>> getListIterm() {
+        Map<meothiGroup, ArrayList<meothiIterm>> listMap = new HashMap<>();
+        for (int i = 0; i < listMap.size(); i++) {
+            meothiGroup group = new meothiGroup(mListGroup.get(i).getId(), mListGroup.get(i).getLoai());
+            ArrayList<meothiIterm> itermiterm = new ArrayList<>();
+
+            itermiterm.add(new meothiIterm(Itermlist.get(i).getId(), Itermlist.get(i).getNoidung()));
+            listMap.put(group, itermiterm);
+
+        }
+        return listMap;
+    }
+
+    private void XuLiJsonLyThuyet() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanlytuyet, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response != null){
+                    int idmeo = 0;
+                    String nd_thi = "";
+                    String loai = "";
+
+                    for(int i = 0; i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            idmeo = jsonObject.getInt("idmeothi");
+                            nd_thi = jsonObject.getString("noidungmeothi");
+                            loai = jsonObject.getString("loai");
+                            mListGroup.add(new meothiGroup(idmeo,loai));
+//                            Log.d("index1", arrayList.get(0).getLoai());
+                            meothiAdapter.notifyDataSetChanged();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
 }
