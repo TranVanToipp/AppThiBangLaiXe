@@ -10,8 +10,9 @@ public class cauhoi_traloi {
     public String d;
     public String Caudung;
     public String Cauliet;
+    public String loaicauhoi;
 
-    public cauhoi_traloi(int cau, String noidungcauhoi, String hinhcauhoi, String a, String b, String c, String d, String caudung, String cauliet) {
+    public cauhoi_traloi(int cau, String noidungcauhoi, String hinhcauhoi, String a, String b, String c, String d, String caudung, String cauliet, String loaicauhoi) {
         this.cau = cau;
         Noidungcauhoi = noidungcauhoi;
         Hinhcauhoi = hinhcauhoi;
@@ -21,6 +22,7 @@ public class cauhoi_traloi {
         this.d = d;
         Caudung = caudung;
         Cauliet = cauliet;
+        this.loaicauhoi = loaicauhoi;
     }
 
     public int getCau() {
@@ -94,4 +96,14 @@ public class cauhoi_traloi {
     public void setCauliet(String cauliet) {
         Cauliet = cauliet;
     }
+
+    public String getLoaicauhoi() {
+        return loaicauhoi;
+    }
+
+    public void setLoaicauhoi(String loaicauhoi) {
+        this.loaicauhoi = loaicauhoi;
+    }
+
+
 }

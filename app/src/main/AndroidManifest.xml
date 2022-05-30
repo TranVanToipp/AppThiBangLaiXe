@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appthibanglaixe">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppThiBangLaiXe">
+        <activity
+            android:name=".Activity.SatHoachActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ThiSatHoachActivity"
+            android:exported="false"
+            android:label="@string/title_activity_thi_sat_hoach"
+            android:theme="@style/Theme.AppThiBangLaiXe.NoActionBar" />
         <activity
             android:name=".Activity.BienBaoActivity"
             android:exported="false" />
@@ -21,9 +31,6 @@
             android:exported="false" />
         <activity
             android:name=".Activity.LuyenTap_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.KiemTra_Activity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -10,15 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.model.bienbao;
+import com.example.appthibanglaixe.model.bode;
 import com.example.appthibanglaixe.model.cauhoi_traloi;
 
 import java.util.ArrayList;
 
 public class Cauhoi_traloiAdapter extends BaseAdapter {
     Activity activity;
-    ArrayList<cauhoi_traloi>arrayList;
+    ArrayList<bode>arrayList;
 
-    public Cauhoi_traloiAdapter(Activity activity, ArrayList<cauhoi_traloi> arrayList) {
+    public Cauhoi_traloiAdapter(Activity activity, ArrayList<bode> arrayList) {
         this.activity = activity;
         this.arrayList = arrayList;
     }
@@ -41,38 +43,37 @@ public class Cauhoi_traloiAdapter extends BaseAdapter {
 
     //có dữ liệu gán lại, đỡ cho chúng ta khi có dữ liệu load đi load lại nhiều lần
     public class ViewHolder {
-        public TextView txtcau, txtnoidung, txthinh, txta, txtb, txtc, txtd, txtcaudung, txtcaudiemliet;
+        public TextView txtsocauhoi, txtbode;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-
+    if(convertView == null){
         viewHolder = new ViewHolder();
         LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = layoutInflater.inflate(R.layout.layoutkiemtra,null);
+        convertView = layoutInflater.inflate(R.layout.layout_cus_bode,null);
 
-        viewHolder.txtcau = convertView.findViewById(R.id.socauhoi);
-        viewHolder.txtnoidung = convertView.findViewById(R.id.noidungcauhoi);
-        viewHolder.txthinh = convertView.findViewById(R.id.hinhcauhoi);
+        viewHolder.txtsocauhoi = convertView.findViewById(R.id.ll_txtsocau);
+        viewHolder.txtbode = convertView.findViewById(R.id.ll_txtsode);
 
-        viewHolder.txta = convertView.findViewById(R.id.a);
-        viewHolder.txtb = convertView.findViewById(R.id.b);
-        viewHolder.txtc = convertView.findViewById(R.id.c);
-        viewHolder.txtd = convertView.findViewById(R.id.d);
-        viewHolder.txtcaudung = convertView.findViewById(R.id.caudung);
-        viewHolder.txtcaudiemliet = convertView.findViewById(R.id.caudiemliet);
 
         convertView.setTag(viewHolder);
-        cauhoi_traloi choi = (cauhoi_traloi) getItem(position);
-        if (choi != null){
-            viewHolder.txtcau.setText("câu:" + 1+choi.getCau());
-            viewHolder.txtnoidung.setText(choi.getNoidungcauhoi());
-            viewHolder.txta.setText(choi.getA());
-            viewHolder.txtb.setText(choi.getB());
-            viewHolder.txtc.setText(choi.getC());
-            viewHolder.txtd.setText(choi.getD());
-        }
-        return convertView;
+    }else {
+        viewHolder = (Cauhoi_traloiAdapter.ViewHolder) convertView.getTag();
     }
-}
+    bode bd = (bode) getItem(position);
+
+        int a = 0;
+
+        while (a < arrayList.size()){
+
+            String bode = arrayList.get(a).getSobode();
+
+            viewHolder.txtbode.setText(bode);
+            a += 25;
+
+        }
+            return convertView;
+        }
+    }

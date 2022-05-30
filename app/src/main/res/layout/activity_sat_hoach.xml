@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.SatHoachActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        app:titleTextColor="@color/white"
+        android:background="@color/purple_500"
+        android:id="@+id/ftp_toobar_kiemtra"
+        android:layout_width="match_parent"
+
+        android:layout_height="?attr/actionBarSize">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/ftt_txt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginRight="30dp"
+                android:textSize="17dp"
+                android:text="00:59"
+                android:textColor="#FFC107" />
+            <TextView
+                android:id="@+id/ftt_txt_socauhoi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/round_mau_home"
+                android:elevation="1dp"
+                android:text="(câu 1/25)"
+                android:textColor="#1F6888" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/ftt_txt_noidungcauhoi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Nội dung câu hỏi ..."
+        android:background="@drawable/background_cauhoi"
+        android:gravity="center"
+        android:padding="5dp"
+        android:minHeight="10dp"
+        android:textColor="#CC000000"
+        android:textSize="16sp"/>
+    <ImageView
+        android:id="@+id/ftt_imganhcauhoi"
+        android:src="@drawable/icon"
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ftt_txt_cautraloi1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:textAllCaps="false"
+        android:textColor="#1F6888"
+        android:background="@drawable/backgroung_cautraloi"
+        android:text="câu trả lời 1"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ftt_txt_cautraloi2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAllCaps="false"
+        android:textColor="#1F6888"
+        android:background="@drawable/backgroung_cautraloi"
+        android:text="Câu trả lời 2"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ftt_txt_cautraloi3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAllCaps="false"
+        android:textColor="#1F6888"
+        android:background="@drawable/backgroung_cautraloi"
+        android:text="Câu trả lời 3"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ftt_txt_cautraloi4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAllCaps="false"
+        android:textColor="#1F6888"
+        android:background="@drawable/backgroung_cautraloi"
+        android:text="Câu trả lời 4"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ftt_btn_chuyencau"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAllCaps="false"
+        android:textColor="#1F6888"
+        android:background="@drawable/background_button"
+        android:text="Chuyển câu "/>
+
+</LinearLayout>

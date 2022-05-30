@@ -7,4 +7,5 @@ public class Server {
     public static String Duongdanbienbao2 = "http://"+ localhost +"/filexuliAPI/getbienbao2.php";
     public static String Duongdanbienbao3 = "http://"+ localhost +"/filexuliAPI/getbienbao3.php";
     public static String Duongdanlytuyet = "http://"+ localhost +"/filexuliAPI/getdulieulythuyet.php";
+    public static String Duongdanbode = "http://"+ localhost +"/filexuliAPI/getbode1.php";
 }

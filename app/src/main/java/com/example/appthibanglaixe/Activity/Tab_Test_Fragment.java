@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.VoiceInteractor;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -34,6 +35,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appthibanglaixe.Adapter.Cauhoi_traloiAdapter;
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.data.sqDuLieu;
+import com.example.appthibanglaixe.entity.modify;
+import com.example.appthibanglaixe.model.bode;
 import com.example.appthibanglaixe.model.cauhoi_traloi;
 import com.example.appthibanglaixe.uliti.Server;
 
@@ -55,27 +59,17 @@ import java.util.TimerTask;
  */
 public class Tab_Test_Fragment extends Fragment {
     // khai báo
-    ListView lsstcauhoi;
-    int id = 0;
-    // khai báo giao diện
-    ImageView imganh;
-    TextView socauhoi;
-    TextView noidungcauhoi;
-    AppCompatButton dapan1, dapan2, dapan3, dapan4, chuyencau;
-    Timer thoigian;
-    int totalTimeMin = 1;
-    int seconds = 0;
-    private ArrayList<cauhoi_traloi> arrayListcauhoi = new ArrayList<>();
-    private int currentQuestionPosition = 0;
-
+    Toolbar toobar;
+    ListView lstthisathoach;
+    ArrayList<bode> arrayListcauhoi;
+    Cauhoi_traloiAdapter cauhoiTraloiAdapter;
+    Button btnchuyen;
 //câu hỏi bắt đầu
     //private int currentQuestionPosition = 0;
 
-    private String cauhoinguoidungchon = "";
 
     //lấy vị trí trang hiện tại
     private int mpage = 1;
-    Toolbar toobarkiemtra;
     // Khai báo toobar
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -123,72 +117,44 @@ public class Tab_Test_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab__test_,container,false);
         //Anhxa();
-        final TextView timer = view.findViewById(R.id.ftt_txt_time);
-        socauhoi = view.findViewById(R.id.ftt_txt_socauhoi);
-        noidungcauhoi = view.findViewById(R.id.ftt_txt_noidungcauhoi);
-        dapan1 =  view.findViewById(R.id.ftt_txt_cautraloi1);
-        dapan2 = view.findViewById(R.id.ftt_txt_cautraloi2);
-        dapan3 = view.findViewById(R.id.ftt_txt_cautraloi3);
-        dapan4 = view.findViewById(R.id.ftt_txt_cautraloi4);
-        imganh = view.findViewById(R.id.ftt_imganhcauhoi);
+        toobar = view.findViewById(R.id.ftt_toobar_thisathoach);
 
-        chuyencau = view.findViewById(R.id.ftt_btn_chuyencau);
-        toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
-                //Getdulieucauhoi_traloi();
-        Xulithoigian(timer);
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdancauhoi_dapan, new Response.Listener<JSONArray>() {
+        lstthisathoach = view.findViewById(R.id.ftt_lst_thisathoach);
+      //  toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
+        Xulijsoncauhoibode();
+        arrayListcauhoi = new ArrayList<>();
+        cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(), arrayListcauhoi);
+        lstthisathoach.setAdapter(cauhoiTraloiAdapter);
+        btnchuyen = view.findViewById(R.id.btnchuyen);
+     XuliToobar();
+    btnchuyen.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), SatHoachActivity.class);
+            startActivity(intent);
+        }
+    });
+       return view;
+    }
+
+    private void Xulijsoncauhoibode() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanbode, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 if(response != null){
                     int cau = 0;
-                    String ndcauhoi = "";
-                    String hcauhoi = "";
-                    String a = "";
-                    String b = "";
-                    String c = "";
-                    String d = "";
-                    String cdung = "";
-                    String cdiemliet = "";
-                    for(int i = 0; i < response.length(); i++){
+                    String bode = "";
+                    for(int i = 0; i < response.length(); i ++){
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
                             cau = jsonObject.getInt("cau");
-                            ndcauhoi = jsonObject.getString("noidungcauhoi");
-                            hcauhoi = jsonObject.getString("hinhcauhoi");
-                            a = jsonObject.getString("a");
-                            b = jsonObject.getString("b");
-                            c = jsonObject.getString("c");
-                            d = jsonObject.getString("d");
-                            cdung = jsonObject.getString("caudung");
-                            cdiemliet = jsonObject.getString("caudiemliet");
-                            cauhoi_traloi ch = new cauhoi_traloi(cau,ndcauhoi,hcauhoi,a,b,c,d,cdung,cdiemliet);
-                            arrayListcauhoi.add(ch);
-
+                            bode = jsonObject.getString("bd");
+                            arrayListcauhoi.add(new bode(cau,bode));
+                            cauhoiTraloiAdapter.notifyDataSetChanged();
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-                    }
-                    noidungcauhoi.setText(arrayListcauhoi.get(0).getNoidungcauhoi());
-                    if(arrayListcauhoi.get(0).getA().isEmpty()){
-                        dapan1.setVisibility(View.GONE);
-                    }else {
-                        dapan1.setText(arrayListcauhoi.get(0).getA());
-                    }
-                    if(arrayListcauhoi.get(0).getB().isEmpty()){
-                        dapan2.setVisibility(View.GONE);
-                    }else {
-                        dapan2.setText(arrayListcauhoi.get(0).getB());
-                    }
-                    if(arrayListcauhoi.get(0).getC().isEmpty()){
-                        dapan3.setVisibility(View.GONE);
-                    }else {
-                        dapan3.setText(arrayListcauhoi.get(0).getC());
-                    }
-                    if(arrayListcauhoi.get(0).getD().isEmpty()){
-                        dapan4.setVisibility(View.GONE);
-                    }else {
-                        dapan4.setText(arrayListcauhoi.get(0).getD());
                     }
                 }
             }
@@ -199,108 +165,15 @@ public class Tab_Test_Fragment extends Fragment {
             }
         });
         requestQueue.add(jsonArrayRequest);
-        chuyencau.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(cauhoinguoidungchon.isEmpty()){
-                    Chuyencauhoi();
-
-//                    Toast.makeText(getActivity(), "Bạn chưa chọn câu hỏi!!!", Toast.LENGTH_SHORT).show();
-                }else {
-                    Chuyencauhoi();
-                }
-            }
-
-            private void Chuyencauhoi() {
-                currentQuestionPosition++;
-            if(currentQuestionPosition+1 == arrayListcauhoi.size()){
-                Toast.makeText(getActivity(), "Nộp bài", Toast.LENGTH_SHORT).show();
-                }
-            if(currentQuestionPosition < arrayListcauhoi.size()){
-                cauhoinguoidungchon = "";
-
-                dapan1.setVisibility(View.VISIBLE);
-                dapan2.setVisibility(View.VISIBLE);
-                dapan3.setVisibility(View.VISIBLE);
-                dapan4.setVisibility(View.VISIBLE);
-
-                socauhoi.setText(currentQuestionPosition+1 + "/" + arrayListcauhoi.size());
-                noidungcauhoi.setText(arrayListcauhoi.get(currentQuestionPosition).getNoidungcauhoi());
-
-                if(arrayListcauhoi.get(currentQuestionPosition).getA().isEmpty()){
-                    dapan1.setVisibility(View.GONE);
-                }
-                else {
-                    dapan1.setText(arrayListcauhoi.get(currentQuestionPosition).getA());
-                }
-                if(arrayListcauhoi.get(currentQuestionPosition).getB().isEmpty()){
-                    dapan2.setVisibility(View.GONE);
-                }
-                else {
-                    dapan2.setText(arrayListcauhoi.get(currentQuestionPosition).getB());
-                }
-                if(arrayListcauhoi.get(currentQuestionPosition).getC().isEmpty()){
-                    dapan3.setVisibility(View.GONE);
-                }
-                else {
-                    dapan3.setText(arrayListcauhoi.get(currentQuestionPosition).getC());
-                }
-                if (arrayListcauhoi.get(currentQuestionPosition).getD().isEmpty()){
-                    dapan4.setVisibility(View.GONE);
-                }
-                else {
-                    dapan4.setText(arrayListcauhoi.get(currentQuestionPosition).getD());
-                    }
-                }
-            }
-        });
-        return view;
-    }
-
-    private void Xulithoigian(TextView timer) {
-        thoigian = new Timer();
-        thoigian.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if(seconds == 0){
-                    totalTimeMin--;
-                    seconds = 59;
-
-                }else if(seconds == 0 && totalTimeMin == 0){
-                    thoigian.purge();
-                    thoigian.cancel();
-                }else {
-                    seconds --;
-                    if(seconds == 0){
-                        thoigian.cancel();
-                    }
-                }
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String finalminutes = String .valueOf(totalTimeMin);
-                        String finalSeconds = String.valueOf(seconds);
-
-                        if(finalminutes.length() == 1){
-                            finalminutes = "0" + finalminutes;
-                        }
-                        if(finalSeconds.length() == 1){
-                            finalSeconds = "0" + finalSeconds;
-                        }
-                        timer.setText(finalminutes+ ":" + finalSeconds);
-                    }
-                });
-            }
-        }, 1000, 1000);
     }
 
     private void XuliToobar() {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toobarkiemtra);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toobar);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toobarkiemtra.setNavigationOnClickListener(new View.OnClickListener() {
+        toobar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.finish();
@@ -308,49 +181,4 @@ public class Tab_Test_Fragment extends Fragment {
         });
     }
 
-    public void Getdulieucauhoi_traloi() {
-        ArrayList<cauhoi_traloi> listch = new ArrayList<>();
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdancauhoi_dapan, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if(response != null){
-                    int cau = 0;
-                    String ndcauhoi = "";
-                    String hcauhoi = "";
-                    String a = "";
-                    String b = "";
-                    String c = "";
-                    String d = "";
-                    String cdung = "";
-                    String cdiemliet = "";
-                        for(int i = 0; i < response.length(); i++){
-                            try {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                cau = jsonObject.getInt("cau");
-                                ndcauhoi = jsonObject.getString("noidungcauhoi");
-                                hcauhoi = jsonObject.getString("hinhcauhoi");
-                                a = jsonObject.getString("a");
-                                b = jsonObject.getString("b");
-                                c = jsonObject.getString("c");
-                                d = jsonObject.getString("d");
-                                cdung = jsonObject.getString("caudung");
-                                cdiemliet = jsonObject.getString("caudiemliet");
-                                cauhoi_traloi ch = new cauhoi_traloi(cau,ndcauhoi,hcauhoi,a,b,c,d,cdung,cdiemliet);
-                                arrayListcauhoi.add(ch);
-
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
 }
