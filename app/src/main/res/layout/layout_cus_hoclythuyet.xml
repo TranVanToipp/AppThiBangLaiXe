@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+
+        android:src="@drawable/icon"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Khái niệm và quy tắc"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:text="Gồm 83 câu hỏi(18 câu điểm liệt)"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="190dp"
+                    android:max="200"
+                    android:layout_gravity="center"
+                    android:progress="55"
+                    android:layout_height="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="7/83 câu"
+                    android:layout_marginLeft="15dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,6 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.appthibanglaixe.R;
 import com.example.appthibanglaixe.model.bienbao;
 import com.example.appthibanglaixe.model.bode;
@@ -33,7 +37,6 @@ public class Cauhoi_traloiAdapter extends BaseAdapter {
     @Override
     public Object getItem(int position) {
         return arrayList.get(position);
-
     }
 
     @Override
@@ -41,39 +44,30 @@ public class Cauhoi_traloiAdapter extends BaseAdapter {
         return position;
     }
 
-    //có dữ liệu gán lại, đỡ cho chúng ta khi có dữ liệu load đi load lại nhiều lần
     public class ViewHolder {
-        public TextView txtsocauhoi, txtbode;
+        public TextView txtcau;
+        public TextView txtbode;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
-    if(convertView == null){
-        viewHolder = new ViewHolder();
-        LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = layoutInflater.inflate(R.layout.layout_cus_bode,null);
+        Cauhoi_traloiAdapter.ViewHolder viewHolder = null;
+        if(convertView == null){
+            viewHolder = new ViewHolder();
+            LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.layout_cus_bode, null);
+            viewHolder.txtcau = (TextView) convertView.findViewById(R.id.ftt_txtsocau);
+            viewHolder.txtbode = (TextView) convertView.findViewById(R.id.ftt_txtsode);
 
-        viewHolder.txtsocauhoi = convertView.findViewById(R.id.ll_txtsocau);
-        viewHolder.txtbode = convertView.findViewById(R.id.ll_txtsode);
-
-
-        convertView.setTag(viewHolder);
-    }else {
-        viewHolder = (Cauhoi_traloiAdapter.ViewHolder) convertView.getTag();
-    }
-    bode bd = (bode) getItem(position);
-
-        int a = 0;
-
-        while (a < arrayList.size()){
-
-            String bode = arrayList.get(a).getSobode();
-
-            viewHolder.txtbode.setText(bode);
-            a += 25;
-
+            convertView.setTag(viewHolder);
+        }else {
+            viewHolder = (Cauhoi_traloiAdapter.ViewHolder) convertView.getTag();
         }
-            return convertView;
-        }
+        bode bd = (bode) getItem(position);
+        viewHolder.txtcau.setText("Câu 0/"+bd.getSocau());
+        viewHolder.txtbode.setText("Bộ đề"+ " "+bd.getSobode());
+
+        return convertView;
     }
+
+}

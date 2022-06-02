@@ -17,13 +17,17 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -64,6 +68,9 @@ public class Tab_Test_Fragment extends Fragment {
     ArrayList<bode> arrayListcauhoi;
     Cauhoi_traloiAdapter cauhoiTraloiAdapter;
     Button btnchuyen;
+    sqDuLieu  data;
+    int index = -1;
+    ArrayList<cauhoi_traloi> arrayList1;
 //câu hỏi bắt đầu
     //private int currentQuestionPosition = 0;
 
@@ -119,14 +126,36 @@ public class Tab_Test_Fragment extends Fragment {
         //Anhxa();
         toobar = view.findViewById(R.id.ftt_toobar_thisathoach);
 
-        lstthisathoach = view.findViewById(R.id.ftt_lst_thisathoach);
+        lstthisathoach = view.findViewById(R.id.ftt_resview);
       //  toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
         Xulijsoncauhoibode();
         arrayListcauhoi = new ArrayList<>();
         cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(), arrayListcauhoi);
+        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         lstthisathoach.setAdapter(cauhoiTraloiAdapter);
         btnchuyen = view.findViewById(R.id.btnchuyen);
      XuliToobar();
+     // bắt xự kiện list view
+
+     lstthisathoach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+         @Override
+         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+             index = position + 1;
+//             sendata(index);
+             ArrayList<cauhoi_traloi> values = data.getAllPeople(index);
+             arrayList1 = new ArrayList<>();
+
+
+         }
+
+         private void sendata(int i) {
+             Intent intent = new Intent(getActivity(), SatHoachActivity.class);
+//             List<cauhoi_traloi> valus = data.getAllPeople(i);
+//             cauhoi_traloi cd = valus.get(i);
+//             intent.putExtra("data",cd);
+             startActivity(intent);
+         }
+     });
     btnchuyen.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -143,12 +172,12 @@ public class Tab_Test_Fragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
                 if(response != null){
-                    int cau = 0;
+                    String cau = "";
                     String bode = "";
                     for(int i = 0; i < response.length(); i ++){
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
-                            cau = jsonObject.getInt("cau");
+                            cau = jsonObject.getString("cau");
                             bode = jsonObject.getString("bd");
                             arrayListcauhoi.add(new bode(cau,bode));
                             cauhoiTraloiAdapter.notifyDataSetChanged();
@@ -180,5 +209,4 @@ public class Tab_Test_Fragment extends Fragment {
             }
         });
     }
-
 }

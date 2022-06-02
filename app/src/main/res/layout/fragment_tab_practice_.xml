@@ -18,5 +18,18 @@
         android:layout_height="?attr/actionBarSize">
 
     </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:text="TÌM KIẾM"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Search Here"
+        android:iconifiedByDefault="false"
+        android:layout_alignParentTop="true"/>
 
 </LinearLayout>

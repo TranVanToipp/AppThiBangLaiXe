@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                         //menu tab Tôi:<item android:id="@+id/mh_menu_uses" android:title="Tôi"
                     //        android:icon="@drawable/ic_baseline_person_24"/>
-//                    case 3:
-//                        mbottomNavigationView.getMenu().findItem(R.id.mh_menu_uses).setChecked(true);
-//                        break;
+                    case 3:
+                        mbottomNavigationView.getMenu().findItem(R.id.mh_menu_uses).setChecked(true);
+                        break;
                 }
             }
 
@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.mh_menu_practice:
                     mViewPage.setCurrentItem(2);
                     break;
-//                case R.id.mh_menu_uses:
-//                    mViewPage.setCurrentItem(3);
-//                    break;
+                case R.id.mh_menu_uses:
+                    mViewPage.setCurrentItem(3);
+                    break;
             }
             return true;
         }

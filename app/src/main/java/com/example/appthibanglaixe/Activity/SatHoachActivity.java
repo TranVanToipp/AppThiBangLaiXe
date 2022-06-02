@@ -3,6 +3,9 @@ package com.example.appthibanglaixe.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.example.appthibanglaixe.Adapter.Cauhoi_traloiAdapter;
 import com.example.appthibanglaixe.R;
 import com.example.appthibanglaixe.data.sqDuLieu;
 import com.example.appthibanglaixe.entity.modify;
@@ -26,14 +31,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SatHoachActivity extends AppCompatActivity {
     // khai báo
+    private modify dbname;
     ListView lsstcauhoi;
+    private Activity activity;
     int id = 0;
     // khai báo giao diện
+    sqDuLieu dulieu;
     ImageView imganh;
     TextView socauhoi;
     TextView noidungcauhoi;
@@ -42,90 +51,43 @@ public class SatHoachActivity extends AppCompatActivity {
     int totalTimeMin = 1;
     int seconds = 0;
     private String cauhoinguoidungchon = "";
-    private ArrayList<cauhoi_traloi> arrayListcauhoi = new ArrayList<>();
+//    private ArrayList<cauhoi_traloi> arrayListcauhoi = new ArrayList<>();
     private int currentQuestionPosition = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sat_hoach);
         Anhxa();
+
 //        ChuyenCauhoi();
         // kích hoạt database
         sqDuLieu.getInstance(this);
         final TextView timer = findViewById(R.id.ftt_txt_time);
         Xulithoigian(timer);
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdancauhoi_dapan, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if(response != null){
-                    int cau = 0;
-                    String ndcauhoi = "";
-                    String hcauhoi = "";
-                    String a = "";
-                    String b = "";
-                    String c = "";
-                    String d = "";
-                    String cdung = "";
-                    String cdiemliet = "";
-                    String loaicauhoi = "";
-                    for(int i = 0; i < response.length(); i++){
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            cau = jsonObject.getInt("cau");
-                            ndcauhoi = jsonObject.getString("noidungcauhoi");
-                            hcauhoi = jsonObject.getString("hinhcauhoi");
-                            a = jsonObject.getString("a");
-                            b = jsonObject.getString("b");
-                            c = jsonObject.getString("c");
-                            d = jsonObject.getString("d");
-                            cdung = jsonObject.getString("caudung");
-                            cdiemliet = jsonObject.getString("caudiemliet");
-                            loaicauhoi = jsonObject.getString("loaicauhoi");
-                            cauhoi_traloi ch = new cauhoi_traloi(cau,ndcauhoi,hcauhoi,a,b,c,d,cdung,cdiemliet,loaicauhoi);
-                            modify.insert(ch);
-                            arrayListcauhoi.add(ch);
-//                            Cursor cursor = modify.finAll();
-//                            arrayListcauhoi.add((cauhoi_traloi) cursor);
-
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                    Log.d("cauhoi", arrayListcauhoi.get(0).getNoidungcauhoi());
-                    noidungcauhoi.setText(arrayListcauhoi.get(0).getNoidungcauhoi());
-                    if(arrayListcauhoi.get(0).getA().isEmpty()){
-                        dapan1.setVisibility(View.GONE);
-                    }else {
-                        dapan1.setText(arrayListcauhoi.get(0).getA());
-                    }
-                    if(arrayListcauhoi.get(0).getB().isEmpty()){
-                        dapan2.setVisibility(View.GONE);
-                    }else {
-                        dapan2.setText(arrayListcauhoi.get(0).getB());
-                    }
-                    if(arrayListcauhoi.get(0).getC().isEmpty()){
-                        dapan3.setVisibility(View.GONE);
-                    }else {
-                        dapan3.setText(arrayListcauhoi.get(0).getC());
-                    }
-                    if(arrayListcauhoi.get(0).getD().isEmpty()){
-                        dapan4.setVisibility(View.GONE);
-                    }else {
-                        dapan4.setText(arrayListcauhoi.get(0).getD());
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-
+        dulieu = new sqDuLieu(this);
+        ArrayList<cauhoi_traloi> valuse = dulieu.getAllPeople(2);
+//        Cauhoi_traloiAdapter cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(this,va);
+        noidungcauhoi.setText(valuse.get(0).getNoidungcauhoi());
+        if(valuse.get(0).getA().isEmpty()){
+            dapan1.setVisibility(View.GONE);
+        }else {
+            dapan1.setText(valuse.get(0).getA());
+        }
+        if(valuse.get(0).getB().isEmpty()){
+            dapan2.setVisibility(View.GONE);
+        }else {
+            dapan2.setText(valuse.get(0).getB());
+        }
+        if(valuse.get(0).getC().isEmpty()){
+            dapan3.setVisibility(View.GONE);
+        }else {
+            dapan3.setText(valuse.get(0).getC());
+        }
+        if(valuse.get(0).getD().isEmpty()){
+            dapan4.setVisibility(View.GONE);
+        }else {
+            dapan4.setText(valuse.get(0).getD());
+        }
         chuyencau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,10 +102,10 @@ public class SatHoachActivity extends AppCompatActivity {
 
             private void Chuyencauhoi() {
                 currentQuestionPosition++;
-                if(currentQuestionPosition+1 == arrayListcauhoi.size()){
+                if(currentQuestionPosition+1 == valuse.size()){
                     Toast.makeText(SatHoachActivity.this, "Nộp bài bạn ơi!!!", Toast.LENGTH_SHORT).show();
                 }
-                if(currentQuestionPosition < arrayListcauhoi.size()) {
+                if(currentQuestionPosition < valuse.size()) {
                     cauhoinguoidungchon = "";
 
                     dapan1.setVisibility(View.VISIBLE);
@@ -151,35 +113,38 @@ public class SatHoachActivity extends AppCompatActivity {
                     dapan3.setVisibility(View.VISIBLE);
                     dapan4.setVisibility(View.VISIBLE);
 
-                    socauhoi.setText(currentQuestionPosition + 1 + "/" + arrayListcauhoi.size());
-                    noidungcauhoi.setText(arrayListcauhoi.get(currentQuestionPosition).getNoidungcauhoi());
+                    socauhoi.setText(currentQuestionPosition + 1 + "/" + valuse.size());
+                    noidungcauhoi.setText(valuse.get(currentQuestionPosition).getNoidungcauhoi());
 
-                    if (arrayListcauhoi.get(currentQuestionPosition).getA().isEmpty()) {
+                    if (valuse.get(currentQuestionPosition).getA().isEmpty()) {
                         dapan1.setVisibility(View.GONE);
                     } else {
-                        dapan1.setText(arrayListcauhoi.get(currentQuestionPosition).getA());
+                        dapan1.setText(valuse.get(currentQuestionPosition).getA());
                     }
-                    if (arrayListcauhoi.get(currentQuestionPosition).getB().isEmpty()) {
+                    if (valuse.get(currentQuestionPosition).getB().isEmpty()) {
                         dapan2.setVisibility(View.GONE);
                     } else {
-                        dapan2.setText(arrayListcauhoi.get(currentQuestionPosition).getB());
+                        dapan2.setText(valuse.get(currentQuestionPosition).getB());
                     }
-                    if (arrayListcauhoi.get(currentQuestionPosition).getC().isEmpty()) {
+                    if (valuse.get(currentQuestionPosition).getC().isEmpty()) {
                         dapan3.setVisibility(View.GONE);
                     } else {
-                        dapan3.setText(arrayListcauhoi.get(currentQuestionPosition).getC());
+                        dapan3.setText(valuse.get(currentQuestionPosition).getC());
                     }
-                    if (arrayListcauhoi.get(currentQuestionPosition).getD().isEmpty()) {
+                    if (valuse.get(currentQuestionPosition).getD().isEmpty()) {
                         dapan4.setVisibility(View.GONE);
                     } else {
-                        dapan4.setText(arrayListcauhoi.get(currentQuestionPosition).getD());
+                        dapan4.setText(valuse.get(currentQuestionPosition).getD());
+                    }
+                    if(valuse.get(currentQuestionPosition).getHinhcauhoi().isEmpty()){
+                        imganh.setVisibility(View.GONE);
+                    }else {
+                        Glide.with(activity).load(valuse.get(currentQuestionPosition).getHinhcauhoi()).error(R.drawable.icon).into(imganh);
                     }
                 }
             }
         });
     }
-
-
 
     private void Xulithoigian(TextView timer) {
         thoigian = new Timer();

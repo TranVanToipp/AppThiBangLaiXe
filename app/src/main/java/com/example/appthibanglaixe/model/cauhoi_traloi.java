@@ -1,35 +1,50 @@
 package com.example.appthibanglaixe.model;
 
-public class cauhoi_traloi {
-    public int cau;
-    public  String Noidungcauhoi;
-    public String Hinhcauhoi;
-    public  String a;
-    public String b;
-    public String c;
-    public String d;
-    public String Caudung;
-    public String Cauliet;
-    public String loaicauhoi;
+import java.io.Serializable;
 
-    public cauhoi_traloi(int cau, String noidungcauhoi, String hinhcauhoi, String a, String b, String c, String d, String caudung, String cauliet, String loaicauhoi) {
+public class cauhoi_traloi  {
+    private int ID;
+    private String cau,Noidungcauhoi,Hinhcauhoi,a,b,c,d,Caudung,Cauliet,loaicauhoi,bode;
+
+    public cauhoi_traloi(){
+
+    }
+    public cauhoi_traloi(int id,String cau, String noidungcauhoi, String hinhcauhoi, String a, String b, String c, String d, String caudung, String cauliet, String loaicauhoi, String bode) {
+        this.ID = id;
         this.cau = cau;
-        Noidungcauhoi = noidungcauhoi;
-        Hinhcauhoi = hinhcauhoi;
+        this.Noidungcauhoi = noidungcauhoi;
+        this.Hinhcauhoi = hinhcauhoi;
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
-        Caudung = caudung;
-        Cauliet = cauliet;
+        this.Caudung = caudung;
+        this.Cauliet = cauliet;
         this.loaicauhoi = loaicauhoi;
+        this.bode=bode;
     }
 
-    public int getCau() {
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getBode() {
+        return bode;
+    }
+
+    public void setBode(String bode) {
+        this.bode = bode;
+    }
+
+    public String getCau() {
         return cau;
     }
 
-    public void setCau(int cau) {
+    public void setCau(String cau) {
         this.cau = cau;
     }
 
@@ -107,3 +122,4 @@ public class cauhoi_traloi {
 
 
 }
+
