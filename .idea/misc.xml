@@ -10,6 +10,8 @@
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_khonghienthi.xml" value="0.125" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/backgroung_cautraloi.xml" value="0.124" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_baseline_phai.xml" value="0.1445" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_baseline_trai.xml" value="0.1445" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_favorite_24.xml" value="0.125" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.125" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/round_mau_home.xml" value="0.124" />
@@ -20,7 +22,7 @@
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_luyen_tap.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_main.xml" value="0.12" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_meo_thi.xml" value="0.1" />
-        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_sat_hoach.xml" value="0.1" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_sat_hoach.xml" value="0.45" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/cus_bienbao.xml" value="0.15443840579710144" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_bien_chi_dan.xml" value="0.15443840579710144" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/fragment_bien_hieu_lenh.xml" value="0.15443840579710144" />

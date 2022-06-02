@@ -67,7 +67,6 @@ public class Tab_Test_Fragment extends Fragment {
     ListView lstthisathoach;
     ArrayList<bode> arrayListcauhoi;
     Cauhoi_traloiAdapter cauhoiTraloiAdapter;
-    Button btnchuyen;
     sqDuLieu  data;
     int index = -1;
     ArrayList<cauhoi_traloi> arrayList1;
@@ -133,7 +132,7 @@ public class Tab_Test_Fragment extends Fragment {
         cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(), arrayListcauhoi);
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         lstthisathoach.setAdapter(cauhoiTraloiAdapter);
-        btnchuyen = view.findViewById(R.id.btnchuyen);
+
      XuliToobar();
      // bắt xự kiện list view
 
@@ -142,27 +141,17 @@ public class Tab_Test_Fragment extends Fragment {
          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
              index = position + 1;
 //             sendata(index);
-             ArrayList<cauhoi_traloi> values = data.getAllPeople(index);
-             arrayList1 = new ArrayList<>();
-
-
+             sendata(index);
          }
 
          private void sendata(int i) {
              Intent intent = new Intent(getActivity(), SatHoachActivity.class);
 //             List<cauhoi_traloi> valus = data.getAllPeople(i);
 //             cauhoi_traloi cd = valus.get(i);
-//             intent.putExtra("data",cd);
+             intent.putExtra("data",i);
              startActivity(intent);
          }
      });
-    btnchuyen.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), SatHoachActivity.class);
-            startActivity(intent);
-        }
-    });
        return view;
     }
 

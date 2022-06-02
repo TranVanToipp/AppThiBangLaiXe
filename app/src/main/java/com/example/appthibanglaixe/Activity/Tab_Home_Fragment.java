@@ -82,10 +82,6 @@ public class Tab_Home_Fragment extends Fragment {
         }
     }
 
-
-
-
-
     @Override
     public void onResume() {
 

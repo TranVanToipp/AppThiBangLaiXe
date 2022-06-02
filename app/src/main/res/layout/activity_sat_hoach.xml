@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".Activity.SatHoachActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         app:titleTextColor="@color/white"
         android:background="@color/purple_500"
@@ -123,4 +124,58 @@
         android:background="@drawable/background_button"
         android:text="Chuyển câu "/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/background_button"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/ash_btnback"
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/ic_baseline_trai"
+                android:textColor="#fff" />
+            <TextView
+                android:textSize="35dp"
+                android:text="|"
+                android:textColor="#fff"
+                android:layout_width="4dp"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:id="@+id/ash_txtcau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.4"
+                android:gravity="center"
+                android:text="Câu 1"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+            <TextView
+                android:textSize="35dp"
+                android:text="|"
+                android:layout_gravity="center"
+                android:textColor="#fff"
+                android:layout_width="4dp"
+                android:layout_height="50dp"/>
+
+            <Button
+                android:id="@+id/ash_btnnext"
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/ic_baseline_phai"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

@@ -4,32 +4,47 @@
     android:orientation="horizontal"
     android:layout_height="match_parent">
     <ImageView
+        android:id="@+id/lch_imghinh"
         android:layout_width="130dp"
         android:layout_height="130dp"
-
         android:src="@drawable/icon"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/lch_txtloai"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Khái niệm và quy tắc"
             android:textStyle="bold"
             android:textSize="18sp"/>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            android:text="Gồm 83 câu hỏi(18 câu điểm liệt)"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/lch_socau"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Gồm 83 câu hỏi"/>
+            <TextView
+                android:id="@+id/lch_caudiemliet"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:text="(18 câu điểm liệt)"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
                 <ProgressBar
+                    android:id="@+id/lch_pbctientrinh"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="190dp"
                     android:max="200"
@@ -37,6 +52,7 @@
                     android:progress="55"
                     android:layout_height="5dp"/>
                 <TextView
+                    android:id="@+id/lch_tongcauhoi"
                     android:layout_width="wrap_content"
                     android:text="7/83 câu"
                     android:layout_marginLeft="15dp"

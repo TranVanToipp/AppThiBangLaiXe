@@ -1,10 +1,12 @@
 package com.example.appthibanglaixe.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +52,7 @@ public class SatHoachActivity extends AppCompatActivity {
     Timer thoigian;
     int totalTimeMin = 1;
     int seconds = 0;
+    Context context;
     private String cauhoinguoidungchon = "";
 //    private ArrayList<cauhoi_traloi> arrayListcauhoi = new ArrayList<>();
     private int currentQuestionPosition = 0;
@@ -65,7 +68,8 @@ public class SatHoachActivity extends AppCompatActivity {
         final TextView timer = findViewById(R.id.ftt_txt_time);
         Xulithoigian(timer);
         dulieu = new sqDuLieu(this);
-        ArrayList<cauhoi_traloi> valuse = dulieu.getAllPeople(2);
+        int i = laydulieu();
+        ArrayList<cauhoi_traloi> valuse = dulieu.getAllPeople(i);
 //        Cauhoi_traloiAdapter cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(this,va);
         noidungcauhoi.setText(valuse.get(0).getNoidungcauhoi());
         if(valuse.get(0).getA().isEmpty()){
@@ -112,6 +116,7 @@ public class SatHoachActivity extends AppCompatActivity {
                     dapan2.setVisibility(View.VISIBLE);
                     dapan3.setVisibility(View.VISIBLE);
                     dapan4.setVisibility(View.VISIBLE);
+                    imganh.setVisibility(View.VISIBLE);
 
                     socauhoi.setText(currentQuestionPosition + 1 + "/" + valuse.size());
                     noidungcauhoi.setText(valuse.get(currentQuestionPosition).getNoidungcauhoi());
@@ -139,11 +144,18 @@ public class SatHoachActivity extends AppCompatActivity {
                     if(valuse.get(currentQuestionPosition).getHinhcauhoi().isEmpty()){
                         imganh.setVisibility(View.GONE);
                     }else {
-                        Glide.with(activity).load(valuse.get(currentQuestionPosition).getHinhcauhoi()).error(R.drawable.icon).into(imganh);
+                        Glide.with(getApplicationContext()).load(valuse.get(currentQuestionPosition).getHinhcauhoi()).error(R.drawable.icon).into(imganh);
                     }
                 }
             }
         });
+
+    }
+
+    private int laydulieu() {
+        Intent intent = getIntent();
+        int i = (int) intent.getSerializableExtra("data");
+        return i;
     }
 
     private void Xulithoigian(TextView timer) {
@@ -167,7 +179,7 @@ public class SatHoachActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String finalminutes = String .valueOf(totalTimeMin);
+                        String finalminutes = String.valueOf(totalTimeMin);
                         String finalSeconds = String.valueOf(seconds);
 
                         if(finalminutes.length() == 1){
@@ -197,4 +209,5 @@ public class SatHoachActivity extends AppCompatActivity {
         chuyencau = findViewById(R.id.ftt_btn_chuyencau);
 //        toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
     }
+
 }
