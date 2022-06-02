@@ -18,4 +18,13 @@ public class DbContract {
         public static final String COLUMN_SOBODE = "sobode";
 
     }
+
+    public static final class Lythuyet implements BaseColumns{
+        public static final String TABLE_NAME1 = "lythuyet";
+        public static final String COLUMN_HINH = "hinh";
+        public static final String COLUMN_TIEUDE = "tieude";
+        public static final String COLUMN_SOCAU = "socau";
+        public static final String COLUMN_DIEMLIET = "caudiemliet";
+        public static final String COLUMN_TIENDO = "tiendo";
+    }
 }

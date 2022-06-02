@@ -19,8 +19,13 @@ import com.example.appthibanglaixe.model.lythuyet;
 import java.util.ArrayList;
 
 public class OnLyThuyetAdapter extends BaseAdapter {
-    Activity activity;
+    Context context;
     ArrayList<lythuyet>arrayList;
+
+    public OnLyThuyetAdapter( Context context, ArrayList<lythuyet> valuse) {
+        this.context = context;
+        this.arrayList = valuse;
+    }
 
     @Override
     public int getCount() {
@@ -50,7 +55,7 @@ public class OnLyThuyetAdapter extends BaseAdapter {
         OnLyThuyetAdapter.ViewHolder viewHolder = null;
         if(convertView == null){
             viewHolder = new ViewHolder();
-            LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.layout_cus_hoclythuyet, null);
             viewHolder.imghinhanh = convertView.findViewById(R.id.lch_imghinh);
             viewHolder.txtnoidung = convertView.findViewById(R.id.lch_txtloai);
@@ -68,6 +73,6 @@ public class OnLyThuyetAdapter extends BaseAdapter {
         viewHolder.bgbtiendo.setMax(200);
         viewHolder.bgbtiendo.setProgress(20);
         Glide.with(convertView).load(lt.getHinhanh()).placeholder(R.drawable.icon).into(viewHolder.imghinhanh);
-        return null;
+        return convertView;
     }
 }

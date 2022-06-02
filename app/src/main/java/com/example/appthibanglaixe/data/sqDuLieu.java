@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.example.appthibanglaixe.entity.modify;
 import com.example.appthibanglaixe.model.cauhoi_traloi;
+import com.example.appthibanglaixe.model.lythuyet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,14 +64,23 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 DbContract.MenuEntry.COLUMN_CAUDIEMLIET + " TEXT, " +
                 DbContract.MenuEntry.COLUMN_LOAICAUHOI + " TEXT, " +
                 DbContract.MenuEntry.COLUMN_SOBODE + " TEXT NOT NULL " + " );";
+        final String SQL_CREATE_BUGS_TABLE1 = " CREATE TABLE " +DbContract.Lythuyet.TABLE_NAME1+"("+
+                DbContract.Lythuyet._ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                DbContract.Lythuyet.COLUMN_TIEUDE+ "TEXT," +
+                DbContract.Lythuyet.COLUMN_HINH+ "TEXT,"+
+                DbContract.Lythuyet.COLUMN_SOCAU+"TEXT,"+
+                DbContract.Lythuyet.COLUMN_DIEMLIET+"TEXT,"+
+                DbContract.Lythuyet.COLUMN_TIENDO+"TEXT"+");";
 
 
         db.execSQL(SQL_CREATE_BUGS_TABLE);
+        db.execSQL(SQL_CREATE_BUGS_TABLE1);
         Log.d(TAG, "Database Created Successfully" );
 
 
         try {
             readDataToDb(db);
+            readDataToDb1(db);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -145,6 +155,52 @@ public class sqDuLieu extends SQLiteOpenHelper {
         }
 
     }
+
+    private void readDataToDb1(SQLiteDatabase db) throws IOException, JSONException {
+
+        final String MNU_TIEUDE = "tieude";
+        final String MNU_HINH = "hinh";
+        final String MNU_SOCAU = "socau";
+        final String MNU_DIEMLIET = "caudiemliet";
+        final String MNU_TIENDO = "tiendo";
+
+        try {
+            String jsonDataString = readJsonDataFromFile1();
+            JSONArray menuItemsJsonArray = new JSONArray(jsonDataString);
+
+            for (int i = 0; i < menuItemsJsonArray.length(); ++i) {
+
+                String tieude, hinh, socau, diemliet, tiendo;
+                JSONObject menuItemObject = menuItemsJsonArray.getJSONObject(i);
+
+
+                tieude = menuItemObject.getString(MNU_TIEUDE);
+                hinh = menuItemObject.getString(MNU_HINH);
+                socau = menuItemObject.getString(MNU_SOCAU);
+                diemliet = menuItemObject.getString(MNU_DIEMLIET);
+                tiendo = menuItemObject.getString(MNU_TIENDO);
+
+                ContentValues menuValues = new ContentValues();
+
+                menuValues.put(DbContract.Lythuyet.COLUMN_TIEUDE, tieude);
+                menuValues.put(DbContract.Lythuyet.COLUMN_HINH,hinh);
+                menuValues.put(DbContract.Lythuyet.COLUMN_SOCAU,socau);
+                menuValues.put(DbContract.Lythuyet.COLUMN_DIEMLIET,diemliet);
+                menuValues.put(DbContract.Lythuyet.COLUMN_TIENDO,tiendo);
+
+                db.insert(DbContract.Lythuyet.TABLE_NAME1, null, menuValues);
+
+
+                Log.d(TAG, "Inserted Successfully " + menuValues );
+            }
+
+
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+            e.printStackTrace();
+        }
+
+    }
     private String readJsonDataFromFile() throws IOException {
 
         InputStream inputStream = null;
@@ -153,6 +209,28 @@ public class sqDuLieu extends SQLiteOpenHelper {
         try {
             String jsonDataString = null;
             inputStream = mResources.openRawResource(R.raw.menu_iterm);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(inputStream, "UTF-8"));
+            while ((jsonDataString = bufferedReader.readLine()) != null) {
+                builder.append(jsonDataString);
+            }
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+
+        return new String(builder);
+    }
+
+    private String readJsonDataFromFile1() throws IOException {
+
+        InputStream inputStream = null;
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            String jsonDataString = null;
+            inputStream = mResources.openRawResource(R.raw.menu_lythuyet);
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(inputStream, "UTF-8"));
             while ((jsonDataString = bufferedReader.readLine()) != null) {
@@ -195,4 +273,59 @@ public class sqDuLieu extends SQLiteOpenHelper {
         db.close();
         return listPerson;
     }
+
+    public ArrayList<com.example.appthibanglaixe.model.lythuyet> getdulieulythuyet() {
+        ArrayList<com.example.appthibanglaixe.model.lythuyet> lstlythuyet = new ArrayList<>();
+        // Select All Query
+        String selectQuery = " SELECT  * FROM " + DbContract.Lythuyet.TABLE_NAME1 ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                lythuyet person = new lythuyet();
+                person.setId(cursor.getInt(0));
+                person.setLoaicauhoi(cursor.getString(1));
+                person.setHinhanh(cursor.getString(2));
+                person.setSocauhoi(cursor.getString(3));
+                person.setCaudiemliet(cursor.getString(4));
+                person.setTiendo(cursor.getString(5));
+
+                lstlythuyet.add(person);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return lstlythuyet;
+    }
+
+    public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getAllCauhoi(int loai) {
+        ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> listPerson = new ArrayList<>();
+        // Select All Query
+        String selectQuery = " SELECT  * FROM " + DbContract.MenuEntry.TABLE_NAME + " where " + DbContract.MenuEntry.COLUMN_LOAICAUHOI + "=" + loai ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                cauhoi_traloi person = new cauhoi_traloi();
+                person.setID(cursor.getInt(0));
+                person.setCau(cursor.getString(1));
+                person.setNoidungcauhoi(cursor.getString(2));
+                person.setHinhcauhoi(cursor.getString(3));
+                person.setA(cursor.getString(4));
+                person.setB(cursor.getString(5));
+                person.setC(cursor.getString(6));
+                person.setD(cursor.getString(7));
+                person.setCaudung(cursor.getString(8));
+                person.setCauliet(cursor.getString(9));
+                person.setLoaicauhoi(cursor.getString(10));
+                person.setBode(cursor.getString(11));
+
+                listPerson.add(person);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return listPerson;
+    }
+
 }

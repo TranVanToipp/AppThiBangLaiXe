@@ -1,18 +1,32 @@
 package com.example.appthibanglaixe.model;
 
 public class lythuyet {
+    int id;
     private String hinhanh;
     private String loaicauhoi;
     private String socauhoi;
     private String caudiemliet;
     private String tiendo;
 
-    public lythuyet(String hinhanh, String loaicauhoi, String socauhoi, String caudiemliet, String tiendo) {
+    public lythuyet(){
+
+    }
+
+    public lythuyet(int id ,String hinhanh, String loaicauhoi, String socauhoi, String caudiemliet, String tiendo) {
+        this.id = id;
         this.hinhanh = hinhanh;
         this.loaicauhoi = loaicauhoi;
         this.socauhoi = socauhoi;
         this.caudiemliet = caudiemliet;
         this.tiendo = tiendo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getHinhanh() {

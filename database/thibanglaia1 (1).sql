@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 31, 2022 at 07:42 AM
+-- Generation Time: Jun 02, 2022 at 03:53 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -428,6 +428,32 @@ INSERT INTO `cauhoi_dapan` (`cau`, `nd_cauhoi`, `hinh_cauhoi`, `a`, `b`, `c`, `d
 (273, 'Theo hướng mũi tên, những hướng nào ô tô con được phép đi?', 'https://lh3.googleusercontent.com/t5lKyzeBllQOuQPQa-nA8w6kUduPbhU2-dzh5QQl7FqDbohk6PhgFWQ9QvcZI_TL969d=s149', '1.Hướng 1.', '2.Hướng 1, 3 và 4.', '3. Hướng 2, 3 và 4.', '4. Cả bốn hướng.', 'b', '', '5', '7'),
 (274, 'Thứ tự các xe đi như thế nào là đúng quy tắc giao thông?', 'https://lh3.googleusercontent.com/OGDIxInYdhDbK_gs0wCSfeOq1zRZZ9i-RL1fhBGjT5JTzAvAX0K_8AQ3j1TY6OtTMyijVfU=s166', '1. Xe con (A), mô tô, xe con (B), xe đạp.', '2. Xe con (B), xe đạp, mô tô, xe con (A).', '3. Xe con (A), xe con (B), mô tô + xe đạp.', '4. Mô tô + xe đạp, xe con (A), xe con (B).', 'd', '', '5', '6'),
 (275, 'Theo hướng mũi tên, những hướng nào xe tải được phép đi?', 'https://lh3.googleusercontent.com/uMPkdnu4b3T6oaaPfcmVQpXIOLWh7Ct04_ZH-9l6qt9i4s6-hEVvsEYjX5Ak-NEEPnzo=s162', '1. Chỉ hướng 1.', '2.Hướng 1, 3 và 4.', '3.Hướng 1, 2 và 3', '4. Cả bốn hướng.', 'a', '', '5', '3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hoclt`
+--
+
+DROP TABLE IF EXISTS `hoclt`;
+CREATE TABLE IF NOT EXISTS `hoclt` (
+  `tieude` text COLLATE utf8_unicode_ci NOT NULL,
+  `hinh` text COLLATE utf8_unicode_ci NOT NULL,
+  `socau` text COLLATE utf8_unicode_ci NOT NULL,
+  `caudiemliet` text COLLATE utf8_unicode_ci NOT NULL,
+  `tiendo` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hoclt`
+--
+
+INSERT INTO `hoclt` (`tieude`, `hinh`, `socau`, `caudiemliet`, `tiendo`) VALUES
+('Khái niệm và quy tắc', 'https://wikici.com/Upload/chu-ky/chu-ky-ten-k-bill-smith-demo-ttf.jpeg', '122', '', ''),
+('Văn hóa và đạo đức lái xe', 'https://cms.lichngaytot.com/medias/original/2015/4/10/Ten-goi-may-man-thuoc-van-V.jpg', '14', '', ''),
+('Kỹ thuật lái xe', 'https://wikici.com/Upload/chu-ky/chu-ky-ten-k-bill-smith-demo-ttf.jpeg', '16', '', ''),
+('Biển báo đường bộ', 'https://media5.sgp1.digitaloceanspaces.com/wp-content/uploads/2021/10/13121903/Letter-B-Wallpapers.jpg', '68', '', ''),
+('Sa hình', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT16jPCDFMrS2b-9U_HtSKjwAVuFc9l-CWyoQ&usqp=CAU', '55', '', '');
 
 -- --------------------------------------------------------
 
