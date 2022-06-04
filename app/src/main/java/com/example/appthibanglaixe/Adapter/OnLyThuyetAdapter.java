@@ -70,8 +70,8 @@ public class OnLyThuyetAdapter extends BaseAdapter {
         viewHolder.txtnoidung.setText(lt.getLoaicauhoi());
         viewHolder.txtsocau.setText(lt.getSocauhoi());
         viewHolder.txtcaudiemliet.setText(lt.getCaudiemliet());
-        viewHolder.bgbtiendo.setMax(200);
-        viewHolder.bgbtiendo.setProgress(20);
+        viewHolder.bgbtiendo.setMax(100);
+        //viewHolder.bgbtiendo.setProgress(Integer.valueOf(lt.getTiendo()));
         Glide.with(convertView).load(lt.getHinhanh()).placeholder(R.drawable.icon).into(viewHolder.imghinhanh);
         return convertView;
     }

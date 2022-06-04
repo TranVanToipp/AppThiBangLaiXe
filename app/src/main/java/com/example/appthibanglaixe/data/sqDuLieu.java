@@ -63,15 +63,16 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 DbContract.MenuEntry.COLUMN_CAUDUNG + " TEXT, " +
                 DbContract.MenuEntry.COLUMN_CAUDIEMLIET + " TEXT, " +
                 DbContract.MenuEntry.COLUMN_LOAICAUHOI + " TEXT, " +
-                DbContract.MenuEntry.COLUMN_SOBODE + " TEXT NOT NULL " + " );";
-        final String SQL_CREATE_BUGS_TABLE1 = " CREATE TABLE " +DbContract.Lythuyet.TABLE_NAME1+"("+
-                DbContract.Lythuyet._ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                DbContract.Lythuyet.COLUMN_TIEUDE+ "TEXT," +
-                DbContract.Lythuyet.COLUMN_HINH+ "TEXT,"+
-                DbContract.Lythuyet.COLUMN_SOCAU+"TEXT,"+
-                DbContract.Lythuyet.COLUMN_DIEMLIET+"TEXT,"+
-                DbContract.Lythuyet.COLUMN_TIENDO+"TEXT"+");";
-
+                DbContract.MenuEntry.COLUMN_SOBODE + " TEXT NOT NULL , " +
+                DbContract.MenuEntry.COLUMN_CNDC + " TEXT , " +
+                DbContract.MenuEntry.COLUMN_NGUOIDUNGLYTHUYET + " TEXT " + " ) ;";
+        final String SQL_CREATE_BUGS_TABLE1 = " CREATE TABLE " +DbContract.Lythuyet.TABLE_NAME1 + "("+
+                DbContract.Lythuyet._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DbContract.Lythuyet.COLUMN_TIEUDE+ " TEXT, " +
+                DbContract.Lythuyet.COLUMN_HINH+ " TEXT, " +
+                DbContract.Lythuyet.COLUMN_SOCAU+" TEXT, " +
+                DbContract.Lythuyet.COLUMN_DIEMLIET + " TEXT , " +
+                DbContract.Lythuyet.COLUMN_TIENDO + " TEXT " + " ); ";
 
         db.execSQL(SQL_CREATE_BUGS_TABLE);
         db.execSQL(SQL_CREATE_BUGS_TABLE1);
@@ -112,7 +113,7 @@ public class sqDuLieu extends SQLiteOpenHelper {
 
             for (int i = 0; i < menuItemsJsonArray.length(); ++i) {
 
-                String cau,noidungcauhoi,hinhcauhoi,a,b,c,d,caudung,caudiemliet,loaicauhoi,sobode;
+                String cau,noidungcauhoi,hinhcauhoi,a,b,c,d,caudung,caudiemliet,loaicauhoi,sobode, CauNDChon, Nguoidunglythuyet ;
                 JSONObject menuItemObject = menuItemsJsonArray.getJSONObject(i);
 
 
@@ -127,6 +128,8 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 caudiemliet=menuItemObject.getString(MNU_CAUDIEMLIET);
                 loaicauhoi=menuItemObject.getString(MNU_LOAICAUHOI);
                 sobode=menuItemObject.getString(MNU_SOBODE);
+                CauNDChon = "";
+                Nguoidunglythuyet = "";
 
                 ContentValues menuValues = new ContentValues();
 
@@ -141,6 +144,8 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 menuValues.put(DbContract.MenuEntry.COLUMN_CAUDIEMLIET,caudiemliet);
                 menuValues.put(DbContract.MenuEntry.COLUMN_LOAICAUHOI,loaicauhoi);
                 menuValues.put(DbContract.MenuEntry.COLUMN_SOBODE,sobode);
+                menuValues.put(DbContract.MenuEntry.COLUMN_CNDC,CauNDChon);
+                menuValues.put(DbContract.MenuEntry.COLUMN_NGUOIDUNGLYTHUYET,Nguoidunglythuyet);
 
                 db.insert(DbContract.MenuEntry.TABLE_NAME, null, menuValues);
 
@@ -265,6 +270,8 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 person.setCauliet(cursor.getString(9));
                 person.setLoaicauhoi(cursor.getString(10));
                 person.setBode(cursor.getString(11));
+                person.setCauNDChon(cursor.getString(12));
+                person.setNguoidunglythuet(cursor.getString(13));
 
                 listPerson.add(person);
             } while (cursor.moveToNext());
@@ -326,6 +333,48 @@ public class sqDuLieu extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return listPerson;
+    }
+
+    public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getAllTienDo(String td, int i) {
+        ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> listPerson = new ArrayList<>();
+        // Select All Query
+        String selectQuery = " SELECT  * FROM " + DbContract.MenuEntry.TABLE_NAME + " WHERE " + DbContract.MenuEntry.COLUMN_NGUOIDUNGLYTHUYET + " != " + td + " AND " + DbContract.MenuEntry.COLUMN_LOAICAUHOI + " = " + i;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                cauhoi_traloi person = new cauhoi_traloi();
+                person.setID(cursor.getInt(0));
+                person.setCau(cursor.getString(1));
+                person.setNoidungcauhoi(cursor.getString(2));
+                person.setHinhcauhoi(cursor.getString(3));
+                person.setA(cursor.getString(4));
+                person.setB(cursor.getString(5));
+                person.setC(cursor.getString(6));
+                person.setD(cursor.getString(7));
+                person.setCaudung(cursor.getString(8));
+                person.setCauliet(cursor.getString(9));
+                person.setLoaicauhoi(cursor.getString(10));
+                person.setBode(cursor.getString(11));
+
+                listPerson.add(person);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return listPerson;
+    }
+
+
+    public long Update(String table, ContentValues values, String whereClause, String[] whereArgs){
+        /*table: tên bảng muốn update
+          values: các cặp key/value - tên cột/giá trị muốn cập nhật
+          whereClause: điều kiện để dòng được chọn
+          whereArgs: mạng các giá trị ứng với whereClause.
+          return số bản ghi đc cập nhật
+        */
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        return sqLiteDatabase.update(table,values,whereClause,whereArgs);
     }
 
 }

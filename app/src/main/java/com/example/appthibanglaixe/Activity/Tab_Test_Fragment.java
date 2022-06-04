@@ -126,33 +126,31 @@ public class Tab_Test_Fragment extends Fragment {
         toobar = view.findViewById(R.id.ftt_toobar_thisathoach);
 
         lstthisathoach = view.findViewById(R.id.ftt_resview);
-      //  toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
+        //  toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
         Xulijsoncauhoibode();
         arrayListcauhoi = new ArrayList<>();
         cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(), arrayListcauhoi);
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         lstthisathoach.setAdapter(cauhoiTraloiAdapter);
 
-     XuliToobar();
-     // bắt xự kiện list view
+        XuliToobar();
+        // bắt xự kiện list view
 
-     lstthisathoach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-         @Override
-         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             index = position + 1;
+        lstthisathoach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position + 1;
 //             sendata(index);
-             sendata(index);
-         }
+                sendata(index);
+            }
 
-         private void sendata(int i) {
-             Intent intent = new Intent(getActivity(), SatHoachActivity.class);
-//             List<cauhoi_traloi> valus = data.getAllPeople(i);
-//             cauhoi_traloi cd = valus.get(i);
-             intent.putExtra("data",i);
-             startActivity(intent);
-         }
-     });
-       return view;
+            private void sendata(int i) {
+                Intent intent = new Intent(getActivity(), SatHoachActivity.class);
+                intent.putExtra("data",i);
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 
     private void Xulijsoncauhoibode() {

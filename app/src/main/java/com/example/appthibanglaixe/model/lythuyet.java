@@ -19,6 +19,7 @@ public class lythuyet {
         this.socauhoi = socauhoi;
         this.caudiemliet = caudiemliet;
         this.tiendo = tiendo;
+
     }
 
     public int getId() {

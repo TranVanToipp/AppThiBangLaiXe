@@ -26,10 +26,8 @@ public class HocLyThuyetActivity extends AppCompatActivity {
     Toolbar toobarhoclythuet;
     ListView lstlythuet;
     sqDuLieu dulieu;
-    Activity activity;
     OnLyThuyetAdapter adapter;
-    ArrayList<cauhoi_traloi> arrayList;
-    int index;
+    int index ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,25 +38,21 @@ public class HocLyThuyetActivity extends AppCompatActivity {
         //int i = laydulieu();
 
         ArrayList<lythuyet> values = dulieu.getdulieulythuyet();
-        adapter = new OnLyThuyetAdapter(activity,values);
+        adapter = new OnLyThuyetAdapter(this,values);
         lstlythuet.setAdapter(adapter);
         lstlythuet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                index = position;
-//                sendata();
+                index =  position + 1;
+                sendata(index);
             }
 
-            private void sendata() {
-               // Intent intent = new Intent(HocLyThuyetActivity.this,)
+            private void sendata(int i) {
+                Intent intent = new Intent(HocLyThuyetActivity.this,OnTapLyThuyetActivity.class);
+                intent.putExtra("data1",i);
+                startActivity(intent);
             }
         });
-    }
-
-    private int laydulieu() {
-        Intent intent = getIntent();
-        int i = (int) intent.getSerializableExtra("data");
-        return i;
     }
 
     private void XuliToobar() {

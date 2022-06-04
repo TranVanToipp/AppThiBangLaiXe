@@ -16,6 +16,8 @@ public class DbContract {
         public static final String COLUMN_CAUDIEMLIET = "caudiemliet";
         public static final String COLUMN_LOAICAUHOI = "loaicauhoi";
         public static final String COLUMN_SOBODE = "sobode";
+        public static final String COLUMN_CNDC = "CauNDChon";
+        public static final String COLUMN_NGUOIDUNGLYTHUYET = "nguoidunglythuet";
 
     }
 

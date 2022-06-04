@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class cauhoi_traloi  {
     private int ID;
-    private String cau,Noidungcauhoi,Hinhcauhoi,a,b,c,d,Caudung,Cauliet,loaicauhoi,bode;
+    private String cau,Noidungcauhoi,Hinhcauhoi,a,b,c,d,Caudung,Cauliet,loaicauhoi,bode,CauNDChon, Nguoidunglythuet;
 
     public cauhoi_traloi(){
 
     }
-    public cauhoi_traloi(int id,String cau, String noidungcauhoi, String hinhcauhoi, String a, String b, String c, String d, String caudung, String cauliet, String loaicauhoi, String bode) {
+    public cauhoi_traloi(int id,String cau, String noidungcauhoi, String hinhcauhoi, String a, String b, String c, String d, String caudung, String cauliet, String loaicauhoi, String bode, String CauNDChon, String Nguoidunglythuyet) {
         this.ID = id;
         this.cau = cau;
         this.Noidungcauhoi = noidungcauhoi;
@@ -22,6 +22,8 @@ public class cauhoi_traloi  {
         this.Cauliet = cauliet;
         this.loaicauhoi = loaicauhoi;
         this.bode=bode;
+        this.CauNDChon = CauNDChon;
+        this.Nguoidunglythuet = Nguoidunglythuyet;
     }
 
     public int getID() {
@@ -120,6 +122,20 @@ public class cauhoi_traloi  {
         this.loaicauhoi = loaicauhoi;
     }
 
+    public String getCauNDChon() {
+        return CauNDChon;
+    }
 
+    public void setCauNDChon(String cauNDChon) {
+        CauNDChon = cauNDChon;
+    }
+
+    public String getNguoidunglythuet() {
+        return Nguoidunglythuet;
+    }
+
+    public void setNguoidunglythuet(String nguoidunglythuet) {
+        Nguoidunglythuet = nguoidunglythuet;
+    }
 }
 

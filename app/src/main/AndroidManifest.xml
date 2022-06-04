@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppThiBangLaiXe">
         <activity
+            android:name=".Activity.OnTapLyThuyetActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SatHoachActivity"
             android:exported="false" />
         <activity
