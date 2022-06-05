@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,9 +28,10 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
     ImageView imghinhanh;
     sqDuLieu dulieu;
     Button btnback, btnnext;
-    int currentQuestionPosition ;
+    int currentQuestionPosition = 0 ;
     String cauhoinguoidungchon = "";
     int j = 0;
+    int td = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,7 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
                 txtdapanb.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapand.setBackgroundResource(R.drawable.background_khonghienthi);
-//                tiendo = values1.size();
-                checkTD(j,valuse,values1);
+                checkTD(currentQuestionPosition,td,j,valuse,values1,i);
             }
         });
 
@@ -103,8 +104,7 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
                 txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapana.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapand.setBackgroundResource(R.drawable.background_khonghienthi);
-//                tiendo = values1.size();
-                checkTD(j,valuse,values1);
+                checkTD(currentQuestionPosition,td,j,valuse,values1,i);
             }
         });
 
@@ -117,8 +117,7 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
                 txtdapana.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanb.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapand.setBackgroundResource(R.drawable.background_khonghienthi);
-//                tiendo = values1.size();
-                checkTD(j,valuse,values1);
+                checkTD(currentQuestionPosition,td,j,valuse,values1,i);
             }
         });
 
@@ -131,7 +130,7 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
                 txtdapana.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanb.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
-                checkTD(j,valuse,values1);
+                checkTD(currentQuestionPosition,td,j,valuse,values1,i);
             }
         });
         btnback.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +152,7 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
                 if(currentQuestionPosition == valuse.size()){
                     Toast.makeText(OnTapLyThuyetActivity.this, "Nộp bài", Toast.LENGTH_SHORT).show();
                 }else {
-                    currentQuestionPosition++;
+                    currentQuestionPosition += 1;
                     chuyencauhoi(valuse);
                 }
 
@@ -162,23 +161,20 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
         });
     }
 
-    public void checkTD(int i, ArrayList<cauhoi_traloi>values, ArrayList<lythuyet> values1){
-        int td = 0;
+    public void checkTD(int j,int td,int i, ArrayList<cauhoi_traloi>values, ArrayList<lythuyet> values1, int a){
         if (values1.get(i).getTiendo().isEmpty()){
-            for(int j = 0; j < values.size(); j++){
-                if(values.get(j).getNguoidunglythuet() != ""){
-                   td += 1;
-                }
+            if(values.get(j).getNguoidunglythuet() != "") {
+                td += 1;
+                updatetd(String.valueOf(td),a);
             }
+
         }else {
-            td = Integer.valueOf(values1.get(i).getTiendo());
-            for(int j = 0; j < values.size(); j++){
-                if(values.get(j).getNguoidunglythuet() != ""){
-                    td += 1;
-                }
+            int td1 = Integer.valueOf(values1.get(i).getTiendo());
+            if(values.get(j).getNguoidunglythuet() != ""){
+                td = td1 + 1;
+                updatetd(String.valueOf(td),a);
             }
         }
-        updatetd(String.valueOf(td),i);
     }
 
     public void checkDA(ArrayList<cauhoi_traloi> valuse,int i,String noidunglythuyet1){
@@ -230,14 +226,14 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
             txtdapanb.setBackgroundResource(R.drawable.backgroung_cautraloi);
             txtdapanc.setBackgroundResource(R.drawable.backgroung_cautraloi);
             txtdapand.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("a"))
-                txtdapana.setBackgroundResource(R.drawable.background_button);
-            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("b"))
-                txtdapanb.setBackgroundResource(R.drawable.background_button);
-            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("c"))
-                txtdapanc.setBackgroundResource(R.drawable.background_button);
-            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("d"))
-                txtdapand.setBackgroundResource(R.drawable.background_button);
+//            if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("a"))
+//                txtdapana.setBackgroundResource(R.drawable.background_button);
+//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("b"))
+//                txtdapanb.setBackgroundResource(R.drawable.background_button);
+//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("c"))
+//                txtdapanc.setBackgroundResource(R.drawable.background_button);
+//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("d"))
+//                txtdapand.setBackgroundResource(R.drawable.background_button);
 
 
             txtcau.setText(currentQuestionPosition + 1 + "/" + valuse.size());
@@ -286,14 +282,14 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
             txtdapanb.setBackgroundResource(R.drawable.backgroung_cautraloi);
             txtdapanc.setBackgroundResource(R.drawable.backgroung_cautraloi);
             txtdapand.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("a"))
-                txtdapana.setBackgroundResource(R.drawable.background_button);
-            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("b"))
-                txtdapanb.setBackgroundResource(R.drawable.background_button);
-            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("c"))
-                txtdapanc.setBackgroundResource(R.drawable.background_button);
-            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("d"))
-                txtdapand.setBackgroundResource(R.drawable.background_button);
+//            if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("a"))
+//                txtdapana.setBackgroundResource(R.drawable.background_button);
+//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("b"))
+//                txtdapanb.setBackgroundResource(R.drawable.background_button);
+//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("c"))
+//                txtdapanc.setBackgroundResource(R.drawable.background_button);
+//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("d"))
+//                txtdapand.setBackgroundResource(R.drawable.background_button);
             int cau = currentQuestionPosition + 1;
             txtcau.setText(cau + "/" + valuse.size());
             txtnoidung.setText(valuse.get(currentQuestionPosition).getNoidungcauhoi());
