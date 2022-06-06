@@ -17,11 +17,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.appthibanglaixe.Adapter.TimKiemAdapter;
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.data.sqDuLieu;
+import com.example.appthibanglaixe.model.cauhoi_traloi;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +39,11 @@ import com.example.appthibanglaixe.R;
 public class Tab_practice_Fragment extends Fragment {
 
     Toolbar toobarluyentap;
+    ListView lsttimkiem;
+    sqDuLieu dulieu;
+    SearchView svsearch;
+    TimKiemAdapter timKiemAdapter;
+    List<cauhoi_traloi> listcauhoi;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,7 +92,27 @@ public class Tab_practice_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_practice_, container, false);
         toobarluyentap = view.findViewById(R.id.ftp_toobar_luyenlap);
+        lsttimkiem = view.findViewById(R.id.ftp_lsttimkiem);
+        svsearch = view.findViewById(R.id.searchView);
+        listcauhoi = new ArrayList<>();
+        dulieu = new sqDuLieu(getActivity());
+        ArrayList<cauhoi_traloi> values = dulieu.getCauHoiTraLoi();
+        timKiemAdapter = new TimKiemAdapter(getActivity(),values,listcauhoi);
+        lsttimkiem.setAdapter(timKiemAdapter);
         Xulitoobarluyentap();
+        svsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                timKiemAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                timKiemAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return view;
     }
 
@@ -137,12 +170,4 @@ public class Tab_practice_Fragment extends Fragment {
         builder.show();
     }
 
-    //Xử lí dialog()
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
 }

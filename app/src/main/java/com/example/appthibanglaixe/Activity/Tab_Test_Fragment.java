@@ -3,6 +3,7 @@ package com.example.appthibanglaixe.Activity;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.VoiceInteractor;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appthibanglaixe.Adapter.Cauhoi_traloiAdapter;
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.data.DbContract;
 import com.example.appthibanglaixe.data.sqDuLieu;
 import com.example.appthibanglaixe.entity.modify;
 import com.example.appthibanglaixe.model.bode;
@@ -69,6 +71,7 @@ public class Tab_Test_Fragment extends Fragment {
     Cauhoi_traloiAdapter cauhoiTraloiAdapter;
     sqDuLieu  data;
     int index = -1;
+    Context context;
     ArrayList<cauhoi_traloi> arrayList1;
 //câu hỏi bắt đầu
     //private int currentQuestionPosition = 0;
@@ -127,73 +130,37 @@ public class Tab_Test_Fragment extends Fragment {
 
         lstthisathoach = view.findViewById(R.id.ftt_resview);
         //  toobarkiemtra = view.findViewById(R.id.ftt_toobar_kiemtra);
-        Xulijsoncauhoibode();
-        arrayListcauhoi = new ArrayList<>();
+        //Xulijsoncauhoibode();
+        sqDuLieu data = new sqDuLieu(getActivity());
+        ArrayList<bode> valuse = data.getDuLieuBoDe();
+        arrayListcauhoi = valuse;
         cauhoiTraloiAdapter = new Cauhoi_traloiAdapter(getActivity(), arrayListcauhoi);
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         lstthisathoach.setAdapter(cauhoiTraloiAdapter);
 
-        XuliToobar();
+        //XuliToobar();
         // bắt xự kiện list view
 
         lstthisathoach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 index = position + 1;
-//             sendata(index);
-                sendata(index);
+                sendata(index,position);
             }
 
-            private void sendata(int i) {
-                Intent intent = new Intent(getActivity(), SatHoachActivity.class);
-                intent.putExtra("data",i);
-                startActivity(intent);
+            private void sendata(int i,int position) {
+                if(valuse.get(position).getKetqua().isEmpty()){
+                    Intent intent = new Intent(getActivity(), SatHoachActivity.class);
+                    intent.putExtra("data",i);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), KetQuaThiActivity.class);
+                    intent.putExtra("bode",i);
+                    startActivity(intent);
+                }
             }
         });
         return view;
-    }
-
-    private void Xulijsoncauhoibode() {
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanbode, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if(response != null){
-                    String cau = "";
-                    String bode = "";
-                    for(int i = 0; i < response.length(); i ++){
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            cau = jsonObject.getString("cau");
-                            bode = jsonObject.getString("bd");
-                            arrayListcauhoi.add(new bode(cau,bode));
-                            cauhoiTraloiAdapter.notifyDataSetChanged();
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
-
-    private void XuliToobar() {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toobar);
-
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toobar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.finish();
-            }
-        });
     }
 }

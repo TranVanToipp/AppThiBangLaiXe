@@ -12,17 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppThiBangLaiXe">
+        <activity-alias
+            android:name=".Activity.Tab_Test_Fragment"
+            android:targetActivity=".MainActivity"
+            android:parentActivityName="@string/title_activity_thi_sat_hoach"/>
+        <activity
+            android:name=".Activity.KetQuaThiActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.OnTapLyThuyetActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.SatHoachActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.ThiSatHoachActivity"
-            android:exported="false"
-            android:label="@string/title_activity_thi_sat_hoach"
-            android:theme="@style/Theme.AppThiBangLaiXe.NoActionBar" />
         <activity
             android:name=".Activity.BienBaoActivity"
             android:exported="false" />

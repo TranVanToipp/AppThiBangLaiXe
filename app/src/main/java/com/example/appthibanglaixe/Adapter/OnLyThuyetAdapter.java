@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.data.sqDuLieu;
 import com.example.appthibanglaixe.model.bienbao;
 import com.example.appthibanglaixe.model.cauhoi_traloi;
 import com.example.appthibanglaixe.model.lythuyet;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 public class OnLyThuyetAdapter extends BaseAdapter {
     Context context;
     ArrayList<lythuyet>arrayList;
-
     public OnLyThuyetAdapter( Context context, ArrayList<lythuyet> valuse) {
         this.context = context;
         this.arrayList = valuse;
@@ -44,7 +44,7 @@ public class OnLyThuyetAdapter extends BaseAdapter {
 
     public class ViewHolder {
         public TextView txtnoidung;
-        public TextView txtsocau;
+        public TextView txtsocau, txtTienDo;
         public ImageView imghinhanh;
         public TextView txtcaudiemliet;
         public ProgressBar bgbtiendo;
@@ -62,16 +62,29 @@ public class OnLyThuyetAdapter extends BaseAdapter {
             viewHolder.txtsocau = convertView.findViewById(R.id.lch_socau);
             viewHolder.txtcaudiemliet = convertView.findViewById(R.id.lch_caudiemliet);
             viewHolder.bgbtiendo = convertView.findViewById(R.id.lch_pbctientrinh);
+            viewHolder.txtTienDo = convertView.findViewById(R.id.lch_tongcauhoi);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         lythuyet lt = (lythuyet) getItem(position);
         viewHolder.txtnoidung.setText(lt.getLoaicauhoi());
-        viewHolder.txtsocau.setText(lt.getSocauhoi());
+        viewHolder.txtsocau.setText("Gồm có: "+lt.getSocauhoi()+" câu");
         viewHolder.txtcaudiemliet.setText(lt.getCaudiemliet());
-        viewHolder.bgbtiendo.setMax(100);
-        //viewHolder.bgbtiendo.setProgress(Integer.valueOf(lt.getTiendo()));
+        int cau = Integer.valueOf(lt.getSocauhoi());
+        viewHolder.bgbtiendo.setMax(cau);
+        if(lt.getTiendo().isEmpty())
+            viewHolder.bgbtiendo.setProgress(0);
+        else {
+            int tdo=Integer.valueOf(lt.getTiendo());
+            viewHolder.bgbtiendo.setProgress(tdo);
+        }
+        if(lt.getTiendo().isEmpty()){
+            viewHolder.txtTienDo.setText("0/"+cau);
+        }
+        else
+            viewHolder.txtTienDo.setText(lt.getTiendo()+"/"+cau);
+
         Glide.with(convertView).load(lt.getHinhanh()).placeholder(R.drawable.icon).into(viewHolder.imghinhanh);
         return convertView;
     }

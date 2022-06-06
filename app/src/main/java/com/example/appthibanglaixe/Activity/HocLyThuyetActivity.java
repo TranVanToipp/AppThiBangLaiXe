@@ -35,7 +35,6 @@ public class HocLyThuyetActivity extends AppCompatActivity {
         Anhxa();
         XuliToobar();
         dulieu = new sqDuLieu(this);
-        //int i = laydulieu();
 
         ArrayList<lythuyet> values = dulieu.getdulieulythuyet();
         adapter = new OnLyThuyetAdapter(this,values);
@@ -48,7 +47,7 @@ public class HocLyThuyetActivity extends AppCompatActivity {
             }
 
             private void sendata(int i) {
-                Intent intent = new Intent(HocLyThuyetActivity.this,OnTapLyThuyetActivity.class);
+                Intent intent = new Intent(HocLyThuyetActivity.this, OnTapLyThuyetActivity.class);
                 intent.putExtra("data1",i);
                 startActivity(intent);
             }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.appthibanglaixe.entity.modify;
+import com.example.appthibanglaixe.model.bode;
 import com.example.appthibanglaixe.model.cauhoi_traloi;
 import com.example.appthibanglaixe.model.lythuyet;
 
@@ -42,7 +43,7 @@ public class sqDuLieu extends SQLiteOpenHelper {
         }
         return instance;
     }
-    public sqDuLieu(@Nullable Context context) {
+    public sqDuLieu(Context context) {
         super(context, DB_Name, null, DB_VERSION);
         mResources = context.getResources();
 
@@ -63,25 +64,34 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 DbContract.MenuEntry.COLUMN_CAUDUNG + " TEXT, " +
                 DbContract.MenuEntry.COLUMN_CAUDIEMLIET + " TEXT, " +
                 DbContract.MenuEntry.COLUMN_LOAICAUHOI + " TEXT, " +
-                DbContract.MenuEntry.COLUMN_SOBODE + " TEXT NOT NULL , " +
+                DbContract.MenuEntry.COLUMN_SOBODE + " TEXT NOT NULL, " +
                 DbContract.MenuEntry.COLUMN_CNDC + " TEXT , " +
                 DbContract.MenuEntry.COLUMN_NGUOIDUNGLYTHUYET + " TEXT " + " ) ;";
-        final String SQL_CREATE_BUGS_TABLE1 = " CREATE TABLE " +DbContract.Lythuyet.TABLE_NAME1 + "("+
-                DbContract.Lythuyet._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                DbContract.Lythuyet.COLUMN_TIEUDE+ " TEXT, " +
+
+        final String SQL_CREATE_BUGS_TABLE1 = "CREATE TABLE " +DbContract.Lythuyet.TABLE_NAME1+" (" +
+                DbContract.Lythuyet._ID+ " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DbContract.Lythuyet.COLUMN_TIEUDE+ " TEXT NOT NULL, " +
                 DbContract.Lythuyet.COLUMN_HINH+ " TEXT, " +
                 DbContract.Lythuyet.COLUMN_SOCAU+" TEXT, " +
-                DbContract.Lythuyet.COLUMN_DIEMLIET + " TEXT , " +
-                DbContract.Lythuyet.COLUMN_TIENDO + " TEXT " + " ); ";
+                DbContract.Lythuyet.COLUMN_DIEMLIET+" TEXT, " +
+                DbContract.Lythuyet.COLUMN_TIENDO+" TEXT " + ");";
+
+        final String SQL_CREATE_BUGS_TABLE_BODE = "CREATE TABLE "+DbContract.BoDe.TABLE_NAMEBODE+" ("+
+                DbContract.BoDe._ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                DbContract.BoDe.COLUM_BDSO+" TEXT, "+
+                DbContract.BoDe.COLUM_SOCAU+" TEXT, "+
+                DbContract.BoDe.COLUM_DIEM+" TEXT, "+
+                DbContract.BoDe.COLUM_KQ+" TEXT " +");";
 
         db.execSQL(SQL_CREATE_BUGS_TABLE);
         db.execSQL(SQL_CREATE_BUGS_TABLE1);
+        db.execSQL(SQL_CREATE_BUGS_TABLE_BODE);
         Log.d(TAG, "Database Created Successfully" );
-
 
         try {
             readDataToDb(db);
             readDataToDb1(db);
+            readDataToDb_BoDe(db);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -113,7 +123,7 @@ public class sqDuLieu extends SQLiteOpenHelper {
 
             for (int i = 0; i < menuItemsJsonArray.length(); ++i) {
 
-                String cau,noidungcauhoi,hinhcauhoi,a,b,c,d,caudung,caudiemliet,loaicauhoi,sobode, CauNDChon, Nguoidunglythuyet ;
+                String cau,noidungcauhoi,hinhcauhoi,a,b,c,d,caudung,caudiemliet,loaicauhoi,sobode,CauNDChon, Nguoidunglythuyet;
                 JSONObject menuItemObject = menuItemsJsonArray.getJSONObject(i);
 
 
@@ -206,6 +216,46 @@ public class sqDuLieu extends SQLiteOpenHelper {
         }
 
     }
+    private void readDataToDb_BoDe(SQLiteDatabase db) throws IOException, JSONException {
+
+        final String MNU_BDSo = "bd";
+        final String MNU_cauSo = "cau";
+
+        try {
+            String jsonDataString = readJsonDataFromFile_BoDe();
+            JSONArray menuItemsJsonArray = new JSONArray(jsonDataString);
+
+            for (int i = 0; i < menuItemsJsonArray.length(); ++i) {
+
+                String bode, cau, diem, ketqua;
+                JSONObject menuItemObject = menuItemsJsonArray.getJSONObject(i);
+
+
+                bode = menuItemObject.getString(MNU_BDSo);
+                cau = menuItemObject.getString(MNU_cauSo);
+                diem ="";
+                ketqua = "";
+
+                ContentValues menuValues = new ContentValues();
+
+                menuValues.put(DbContract.BoDe.COLUM_BDSO, bode);
+                menuValues.put(DbContract.BoDe.COLUM_SOCAU,cau);
+                menuValues.put(DbContract.BoDe.COLUM_DIEM,diem);
+                menuValues.put(DbContract.BoDe.COLUM_KQ,ketqua);
+
+                db.insert(DbContract.BoDe.TABLE_NAMEBODE, null, menuValues);
+
+
+                Log.d(TAG, "Inserted Successfully " + menuValues );
+            }
+
+
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+            e.printStackTrace();
+        }
+
+    }
     private String readJsonDataFromFile() throws IOException {
 
         InputStream inputStream = null;
@@ -249,6 +299,26 @@ public class sqDuLieu extends SQLiteOpenHelper {
 
         return new String(builder);
     }
+    private String readJsonDataFromFile_BoDe() throws IOException{
+        InputStream inputStream = null;
+        StringBuilder builder = new StringBuilder();
+        try{
+            String jsonDataString = null;
+            inputStream = mResources.openRawResource(R.raw.menu_bode);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(inputStream, "UTF-8"));
+            while ((jsonDataString = bufferedReader.readLine()) != null) {
+                builder.append(jsonDataString);
+            }
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+        return new String(builder);
+    }
+
+
     public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getAllPeople(int bode) {
         ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> listPerson = new ArrayList<>();
         // Select All Query
@@ -279,6 +349,95 @@ public class sqDuLieu extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return listPerson;
+    }
+
+
+
+    public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getTienDo(int loaicauhoi) {
+        ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> listPerson = new ArrayList<>();
+        // Select All Query
+        String selectQuery = " SELECT  * FROM " + DbContract.MenuEntry.TABLE_NAME + " where "
+                + DbContract.MenuEntry.COLUMN_LOAICAUHOI + " = " + loaicauhoi + " AND "+DbContract.MenuEntry.COLUMN_NGUOIDUNGLYTHUYET+" !=''";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                cauhoi_traloi person = new cauhoi_traloi();
+                person.setID(cursor.getInt(0));
+                person.setCau(cursor.getString(1));
+                person.setNoidungcauhoi(cursor.getString(2));
+                person.setHinhcauhoi(cursor.getString(3));
+                person.setA(cursor.getString(4));
+                person.setB(cursor.getString(5));
+                person.setC(cursor.getString(6));
+                person.setD(cursor.getString(7));
+                person.setCaudung(cursor.getString(8));
+                person.setCauliet(cursor.getString(9));
+                person.setLoaicauhoi(cursor.getString(10));
+                person.setBode(cursor.getString(11));
+                person.setCauNDChon(cursor.getString(12));
+                person.setNguoidunglythuet(cursor.getString(13));
+
+                listPerson.add(person);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return listPerson;
+    }
+
+    //select cau hỏi trả lời
+    public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getCauHoiTraLoi() {
+        ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> listPerson = new ArrayList<>();
+        // Select All Query
+        String selectQuery = " SELECT  * FROM " + DbContract.MenuEntry.TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                cauhoi_traloi person = new cauhoi_traloi();
+                person.setID(cursor.getInt(0));
+                person.setCau(cursor.getString(1));
+                person.setNoidungcauhoi(cursor.getString(2));
+                person.setHinhcauhoi(cursor.getString(3));
+                person.setA(cursor.getString(4));
+                person.setB(cursor.getString(5));
+                person.setC(cursor.getString(6));
+                person.setD(cursor.getString(7));
+                person.setCaudung(cursor.getString(8));
+                person.setCauliet(cursor.getString(9));
+                person.setLoaicauhoi(cursor.getString(10));
+                person.setBode(cursor.getString(11));
+                person.setCauNDChon(cursor.getString(12));
+                person.setNguoidunglythuet(cursor.getString(13));
+
+                listPerson.add(person);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return listPerson;
+    }
+
+    public ArrayList<com.example.appthibanglaixe.model.bode> getDuLieuBoDe(){
+        ArrayList<com.example.appthibanglaixe.model.bode> lstbode = new ArrayList<>();
+        String selectQuery = "SELECT * FROM "+DbContract.BoDe.TABLE_NAMEBODE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            do{
+                bode person = new bode();
+                person.setId(cursor.getInt(0));
+                person.setSobode(cursor.getString(1));
+                person.setSocau(cursor.getString(2));
+                person.setDiem(cursor.getString(3));
+                person.setKetqua(cursor.getString(4));
+                lstbode.add(person);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return lstbode;
     }
 
     public ArrayList<com.example.appthibanglaixe.model.lythuyet> getdulieulythuyet() {
@@ -335,37 +494,12 @@ public class sqDuLieu extends SQLiteOpenHelper {
         return listPerson;
     }
 
-    public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getAllTienDo(String td, int i) {
-        ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> listPerson = new ArrayList<>();
-        // Select All Query
-        String selectQuery = " SELECT  * FROM " + DbContract.MenuEntry.TABLE_NAME + " WHERE " + DbContract.MenuEntry.COLUMN_NGUOIDUNGLYTHUYET + " != " + td + " AND " + DbContract.MenuEntry.COLUMN_LOAICAUHOI + " = " + i;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                cauhoi_traloi person = new cauhoi_traloi();
-                person.setID(cursor.getInt(0));
-                person.setCau(cursor.getString(1));
-                person.setNoidungcauhoi(cursor.getString(2));
-                person.setHinhcauhoi(cursor.getString(3));
-                person.setA(cursor.getString(4));
-                person.setB(cursor.getString(5));
-                person.setC(cursor.getString(6));
-                person.setD(cursor.getString(7));
-                person.setCaudung(cursor.getString(8));
-                person.setCauliet(cursor.getString(9));
-                person.setLoaicauhoi(cursor.getString(10));
-                person.setBode(cursor.getString(11));
-
-                listPerson.add(person);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return listPerson;
+    public Cursor SelectData(String sql){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor c = sqLiteDatabase.rawQuery(sql,null);
+        return c;
     }
-
-
+    //update
     public long Update(String table, ContentValues values, String whereClause, String[] whereArgs){
         /*table: tên bảng muốn update
           values: các cặp key/value - tên cột/giá trị muốn cập nhật

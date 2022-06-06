@@ -23,10 +23,17 @@ public class DbContract {
 
     public static final class Lythuyet implements BaseColumns{
         public static final String TABLE_NAME1 = "lythuyet";
-        public static final String COLUMN_HINH = "hinh";
         public static final String COLUMN_TIEUDE = "tieude";
+        public static final String COLUMN_HINH = "hinh";
         public static final String COLUMN_SOCAU = "socau";
         public static final String COLUMN_DIEMLIET = "caudiemliet";
         public static final String COLUMN_TIENDO = "tiendo";
+    }
+    public static final class BoDe implements BaseColumns{
+        public static final String TABLE_NAMEBODE = "bode";
+        public static final String COLUM_BDSO = "bodeso";
+        public static final String COLUM_SOCAU = "socau";
+        public static final String COLUM_DIEM = "diem";
+        public static final String COLUM_KQ = "ketqua";
     }
 }

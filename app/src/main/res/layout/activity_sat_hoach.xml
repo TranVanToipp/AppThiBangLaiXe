@@ -16,28 +16,34 @@
 
         android:layout_height="?attr/actionBarSize">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:weightSum="3"
+            android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:text="Còn Lại:"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/ftt_txt_time"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginRight="30dp"
                 android:textSize="17dp"
                 android:text="00:59"
                 android:textColor="#FFC107" />
-            <TextView
-                android:id="@+id/ftt_txt_socauhoi"
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btnNopBai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/round_mau_home"
-                android:elevation="1dp"
-                android:text="(câu 1/25)"
-                android:textColor="#1F6888" />
+                android:text="Nộp Bài"/>
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -112,8 +118,6 @@
         android:background="@drawable/backgroung_cautraloi"
         android:text="Câu trả lời 4"/>
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -133,7 +137,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:background="@drawable/ic_baseline_trai"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                tools:ignore="SpeakableTextPresentCheck" />
             <TextView
                 android:textSize="35dp"
                 android:text="|"
@@ -165,7 +170,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:background="@drawable/ic_baseline_phai"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
