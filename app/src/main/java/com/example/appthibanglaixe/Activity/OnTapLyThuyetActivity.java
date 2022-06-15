@@ -5,15 +5,18 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.appthibanglaixe.Adapter.OnLyThuyetAdapter;
 import com.example.appthibanglaixe.R;
 import com.example.appthibanglaixe.data.sqDuLieu;
 import com.example.appthibanglaixe.model.cauhoi_traloi;
@@ -33,6 +36,12 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
     String tiendo;
 
     @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_tap_ly_thuyet);
@@ -41,11 +50,13 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
         dulieu = new sqDuLieu(this);
         int i = laydulieu();
         ArrayList<cauhoi_traloi> valuse = dulieu.getAllCauhoi(i);
-        ArrayList<lythuyet> values1 = dulieu.getdulieulythuyet();
+        ArrayList<lythuyet> valu = dulieu.getdulieulythuyet();
+        int lt = i-1;
+        toobar.setTitle(valu.get(lt).getLoaicauhoi());
         txtnoidung.setText(valuse.get(0).getNoidungcauhoi());
-        if(valuse.get(0).getCauliet().equals(1)){
-            txtnoidung.setText(valuse.get(0).getNoidungcauhoi()+"(câu điểm liệt)");
-        }
+//        if(valuse.get(0).getCauliet().equals("1")){
+//            txtcaudiemliet.setText("(câu điểm liệt)");
+//        }
         if(valuse.get(0).getHinhcauhoi().isEmpty()){
             imghinhanh.setVisibility(View.GONE);
         }else {
@@ -55,31 +66,87 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
             txtdapana.setVisibility(View.GONE);
         }else {
             txtdapana.setText(valuse.get(0).getA());
+            if(valuse.get(0).getCaudung().equals("a") && valuse.get(0).getNguoidunglythuet().isEmpty());
+            else if(valuse.get(0).getCaudung().equals("a")){
+                txtdapana.setBackgroundResource(R.drawable.background_button);
+                if(valuse.get(0).getNguoidunglythuet().equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_home);
+            }
         }if (valuse.get(0).getB().isEmpty()){
             txtdapanb.setVisibility(View.GONE);
         }else {
             txtdapanb.setText(valuse.get(0).getB());
+            if(valuse.get(0).getCaudung().equals("b") && valuse.get(0).getNguoidunglythuet().isEmpty());
+            else if(valuse.get(0).getCaudung().equals("b")){
+                txtdapanb.setBackgroundResource(R.drawable.background_button);
+                if(valuse.get(0).getNguoidunglythuet().equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_home);
+            }
         }if(valuse.get(0).getC().isEmpty()){
             txtdapanc.setVisibility(View.GONE);
         }else {
             txtdapanc.setText(valuse.get(0).getC());
+            if(valuse.get(0).getCaudung().equals("c") && valuse.get(0).getNguoidunglythuet().isEmpty());
+            else if(valuse.get(0).getCaudung().equals("c")){
+                txtdapanc.setBackgroundResource(R.drawable.background_button);
+                if(valuse.get(0).getNguoidunglythuet().equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_home);
+            }
         }if(valuse.get(0).getD().isEmpty()){
             txtdapand.setVisibility(View.GONE);
         }else {
             txtdapand.setText(valuse.get(0).getD());
+            if(valuse.get(0).getCaudung().equals("d") && valuse.get(0).getNguoidunglythuet().isEmpty());
+            else if(valuse.get(0).getCaudung().equals("d")){
+                txtdapand.setBackgroundResource(R.drawable.background_button);
+                if(valuse.get(0).getNguoidunglythuet().equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(0).getNguoidunglythuet().equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_home);
+            }
         }
 
         txtdapana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "a";
-                txtdapana.setBackgroundResource(R.drawable.background_button);
+                txtdapana.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanb.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapand.setBackgroundResource(R.drawable.background_khonghienthi);
                 checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
                 tiendo = tiendo(i);
                 updatetd(tiendo,i);
+                String cauD = valuse.get(currentQuestionPosition).getCaudung();
+                if(cauD.equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_button);
+                ArrayList<cauhoi_traloi> val = dulieu.getAllCauhoi(i);
+                String cauNDC = val.get(currentQuestionPosition).getNguoidunglythuet();
+                if(cauNDC.equals(cauD))
+                    txtdapana.setBackgroundResource(R.drawable.background_button);
+                else
+                    txtdapana.setBackgroundResource(R.drawable.background_home);
+
             }
         });
 
@@ -87,14 +154,28 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "b";
-//                checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
-                txtdapanb.setBackgroundResource(R.drawable.background_button);
-                txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapana.setBackgroundResource(R.drawable.background_khonghienthi);
+                txtdapanb.setBackgroundResource(R.drawable.background_khonghienthi);
+                txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapand.setBackgroundResource(R.drawable.background_khonghienthi);
                 checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
                 tiendo = tiendo(i);
                 updatetd(tiendo,i);
+                String cauD = valuse.get(currentQuestionPosition).getCaudung();
+                if(cauD.equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_button);
+                ArrayList<cauhoi_traloi> val = dulieu.getAllCauhoi(i);
+                String cauNDC = val.get(currentQuestionPosition).getNguoidunglythuet();
+                if(cauNDC.equals(cauD))
+                    txtdapanb.setBackgroundResource(R.drawable.background_button);
+                else
+                    txtdapanb.setBackgroundResource(R.drawable.background_home);
             }
         });
 
@@ -102,14 +183,28 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "c";
-//                checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
-                txtdapanc.setBackgroundResource(R.drawable.background_button);
                 txtdapana.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanb.setBackgroundResource(R.drawable.background_khonghienthi);
+                txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapand.setBackgroundResource(R.drawable.background_khonghienthi);
                 checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
                 tiendo = tiendo(i);
                 updatetd(tiendo,i);
+                String cauD = valuse.get(currentQuestionPosition).getCaudung();
+                if(cauD.equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_button);
+                ArrayList<cauhoi_traloi> val = dulieu.getAllCauhoi(i);
+                String cauNDC = val.get(currentQuestionPosition).getNguoidunglythuet();
+                if(cauNDC.equals(cauD))
+                    txtdapanc.setBackgroundResource(R.drawable.background_button);
+                else
+                    txtdapanc.setBackgroundResource(R.drawable.background_home);
             }
         });
 
@@ -117,14 +212,28 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "d";
-//                checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
-                txtdapand.setBackgroundResource(R.drawable.background_button);
                 txtdapana.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanb.setBackgroundResource(R.drawable.background_khonghienthi);
                 txtdapanc.setBackgroundResource(R.drawable.background_khonghienthi);
+                txtdapand.setBackgroundResource(R.drawable.background_khonghienthi);
                 checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
                 tiendo = tiendo(i);
                 updatetd(tiendo,i);
+                String cauD = valuse.get(currentQuestionPosition).getCaudung();
+                if(cauD.equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_button);
+                if(cauD.equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_button);
+                ArrayList<cauhoi_traloi> val = dulieu.getAllCauhoi(i);
+                String cauNDC = val.get(currentQuestionPosition).getNguoidunglythuet();
+                if(cauNDC.equals(cauD))
+                    txtdapand.setBackgroundResource(R.drawable.background_button);
+                else
+                    txtdapand.setBackgroundResource(R.drawable.background_home);
             }
         });
         btnback.setOnClickListener(new View.OnClickListener() {
@@ -133,8 +242,9 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
                 if(currentQuestionPosition == 0){
                     Toast.makeText(OnTapLyThuyetActivity.this, "Câu đầu tiên", Toast.LENGTH_SHORT).show();
                 }else {
+                    ArrayList<cauhoi_traloi> val = dulieu.getAllCauhoi(i);
                     currentQuestionPosition -= 1;
-                    trolai(valuse);
+                    trolai(val);
                 }
             }
 
@@ -143,44 +253,24 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<cauhoi_traloi> val = dulieu.getAllCauhoi(i);
                 if(currentQuestionPosition == valuse.size()-1){
-                    Toast.makeText(OnTapLyThuyetActivity.this, "Nộp bài -- " + currentQuestionPosition, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OnTapLyThuyetActivity.this, "Đã ôn Xong-- ", Toast.LENGTH_SHORT).show();
                 }else {
                     currentQuestionPosition += 1;
-                    chuyencauhoi(valuse);
+                    chuyencauhoi(val);
                 }
 
             }
 
         });
     }
-
-    /* public int checkTD(int td,int i, ArrayList<lythuyet> values1){
-         i-=1;
-         int td1;
-         if (values1.get(i).getTiendo().equals(""))
-             td1 = 0;
-         else
-             td1 = Integer.valueOf(values1.get(i).getTiendo());
-         td = td1 + 1;
-         return td;
-     }*/
     public String tiendo(int i){
         ArrayList<cauhoi_traloi>valuseTD = dulieu.getTienDo(i);
         String td = String.valueOf(valuseTD.size());
         return td;
-    }
-        /*String cau = valuse.get(currentQuestionPosition).getNguoidunglythuet();
-        if(cau != "")
-            td=td1;
-        else
-            td=td1+1;
-        String tt = String.valueOf(td);
-        updatetd(tt,i-1);
-        Toast.makeText(getApplicationContext(), "--update tiến độ = "+td1+"-- update: "+values1.get(i-1).getLoaicauhoi(), Toast.LENGTH_SHORT).show();
-        checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
-        Toast.makeText(getApplicationContext(), "--update ngdlt = "+cauhoinguoidungchon+"-- update: "+valuse.get(currentQuestionPosition).getNguoidunglythuet(), Toast.LENGTH_SHORT).show();*/
 
+    }
     public void checkDA(ArrayList<cauhoi_traloi> valuse,int i,String noidunglythuyet1){
         update(valuse,noidunglythuyet1,i);
     }
@@ -190,7 +280,8 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
         val.put("nguoidunglythuet",lythuyet);
         dulieu.Update(DbContract.MenuEntry.TABLE_NAME,val, " _id = "+valuse.get(i).getID(),null);
     }
-    //
+
+
     private void updatetd(String tiendo,int i){
         ContentValues val = new ContentValues();
         val.put("tiendo",tiendo);
@@ -206,41 +297,17 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
     private void Xulitoobar() {
         setSupportActionBar(toobar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toobar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
 
     public void chuyencauhoi(ArrayList<cauhoi_traloi> valuse) {
         if(currentQuestionPosition < valuse.size()) {
             cauhoinguoidungchon = "";
-            txtdapana.setVisibility(View.VISIBLE);
-            txtdapanb.setVisibility(View.VISIBLE);
-            txtdapanc.setVisibility(View.VISIBLE);
-            txtdapand.setVisibility(View.VISIBLE);
-            imghinhanh.setVisibility(View.VISIBLE);
-
-            txtdapana.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            txtdapanb.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            txtdapanc.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            txtdapand.setBackgroundResource(R.drawable.backgroung_cautraloi);
-//            if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("a"))
-//                txtdapana.setBackgroundResource(R.drawable.background_button);
-//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("b"))
-//                txtdapanb.setBackgroundResource(R.drawable.background_button);
-//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("c"))
-//                txtdapanc.setBackgroundResource(R.drawable.background_button);
-//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("d"))
-//                txtdapand.setBackgroundResource(R.drawable.background_button);
-
-
+            mauCau(valuse, currentQuestionPosition);
             txtcau.setText(currentQuestionPosition + 1 + "/" + valuse.size());
             txtnoidung.setText(valuse.get(currentQuestionPosition).getNoidungcauhoi());
-
+            if(valuse.get(currentQuestionPosition).getCauliet().equals("1")){
+                txtcaudiemliet.setText("(câu điểm liệt)");
+            }
             if (valuse.get(currentQuestionPosition).getA().isEmpty()) {
                 txtdapana.setVisibility(View.GONE);
             } else {
@@ -273,29 +340,13 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
             currentQuestionPosition -= 1;
         if (currentQuestionPosition > -1 && currentQuestionPosition < valuse.size()) {
             cauhoinguoidungchon = "";
-
-            txtdapana.setVisibility(View.VISIBLE);
-            txtdapanb.setVisibility(View.VISIBLE);
-            txtdapanc.setVisibility(View.VISIBLE);
-            txtdapand.setVisibility(View.VISIBLE);
-            imghinhanh.setVisibility(View.VISIBLE);
-
-            txtdapana.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            txtdapanb.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            txtdapanc.setBackgroundResource(R.drawable.backgroung_cautraloi);
-            txtdapand.setBackgroundResource(R.drawable.backgroung_cautraloi);
-//            if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("a"))
-//                txtdapana.setBackgroundResource(R.drawable.background_button);
-//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("b"))
-//                txtdapanb.setBackgroundResource(R.drawable.background_button);
-//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("c"))
-//                txtdapanc.setBackgroundResource(R.drawable.background_button);
-//            else if(valuse.get(currentQuestionPosition).getNguoidunglythuet().equals("d"))
-//                txtdapand.setBackgroundResource(R.drawable.background_button);
+            mauCau(valuse, currentQuestionPosition);
             int cau = currentQuestionPosition + 1;
             txtcau.setText(cau + "/" + valuse.size());
             txtnoidung.setText(valuse.get(currentQuestionPosition).getNoidungcauhoi());
-
+            if(valuse.get(currentQuestionPosition).getCauliet().equals("1")){
+                txtcaudiemliet.setText("(câu điểm liệt)");
+            }
             if (valuse.get(currentQuestionPosition).getA().isEmpty()) {
                 txtdapana.setVisibility(View.GONE);
             } else {
@@ -324,6 +375,66 @@ public class OnTapLyThuyetActivity extends AppCompatActivity {
         }
     }
 
+    public void mauCau(ArrayList<cauhoi_traloi> valuse,int cau){
+        txtdapana.setVisibility(View.VISIBLE);
+        txtdapanb.setVisibility(View.VISIBLE);
+        txtdapanc.setVisibility(View.VISIBLE);
+        txtdapand.setVisibility(View.VISIBLE);
+        imghinhanh.setVisibility(View.VISIBLE);
+
+        txtdapana.setBackgroundResource(R.drawable.backgroung_cautraloi);
+        txtdapanb.setBackgroundResource(R.drawable.backgroung_cautraloi);
+        txtdapanc.setBackgroundResource(R.drawable.backgroung_cautraloi);
+        txtdapand.setBackgroundResource(R.drawable.backgroung_cautraloi);
+        if(valuse.get(cau).getCaudung().equals("a") && valuse.get(cau).getNguoidunglythuet().isEmpty());
+        else {
+            if(valuse.get(cau).getCaudung().equals("a")){
+                txtdapana.setBackgroundResource(R.drawable.background_button);
+                if(valuse.get(cau).getNguoidunglythuet().equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(cau).getNguoidunglythuet().equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(cau).getNguoidunglythuet().equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_home);
+            }
+        }
+        if(valuse.get(cau).getCaudung().equals("b") && valuse.get(cau).getNguoidunglythuet().isEmpty());
+        else {
+            if(valuse.get(cau).getCaudung().equals("b")){
+                txtdapanb.setBackgroundResource(R.drawable.background_button);
+                if(valuse.get(cau).getNguoidunglythuet().equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(cau).getNguoidunglythuet().equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(cau).getNguoidunglythuet().equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_home);
+            }
+        }
+        if(valuse.get(cau).getCaudung().equals("c") && valuse.get(cau).getNguoidunglythuet().isEmpty());
+        else {
+            if(valuse.get(cau).getCaudung().equals("c")){
+                txtdapanc.setBackgroundResource(R.drawable.background_button);
+                if(valuse.get(cau).getNguoidunglythuet().equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(cau).getNguoidunglythuet().equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_home);
+                else if(valuse.get(cau).getNguoidunglythuet().equals("d"))
+                    txtdapand.setBackgroundResource(R.drawable.background_home);
+            }
+        }
+        if(valuse.get(cau).getCaudung().equals("c") && valuse.get(cau).getNguoidunglythuet().isEmpty());
+        else {
+            if (valuse.get(cau).getCaudung().equals("d")) {
+                txtdapand.setBackgroundResource(R.drawable.background_button);
+                if (valuse.get(cau).getNguoidunglythuet().equals("b"))
+                    txtdapanb.setBackgroundResource(R.drawable.background_home);
+                else if (valuse.get(cau).getNguoidunglythuet().equals("c"))
+                    txtdapanc.setBackgroundResource(R.drawable.background_home);
+                else if (valuse.get(cau).getNguoidunglythuet().equals("a"))
+                    txtdapana.setBackgroundResource(R.drawable.background_home);
+            }
+        }
+    }
     private void Anhxa() {
         txtnoidung = findViewById(R.id.aotlt_txtnoidung);
         txtcaudiemliet = findViewById(R.id.aotlt_caudiemliet);

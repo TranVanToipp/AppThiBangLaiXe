@@ -6,7 +6,4 @@
         android:icon="@drawable/ic_baseline_playlist_add_check_24"/>
     <item android:id="@+id/mh_menu_practice" android:title="tìm kiếm"
         android:icon="@drawable/ic_baseline_search_24"/>
-    <item android:id="@+id/mh_menu_uses" android:title="Tôi"
-           android:icon="@drawable/ic_baseline_person_24"/>
-
 </menu>

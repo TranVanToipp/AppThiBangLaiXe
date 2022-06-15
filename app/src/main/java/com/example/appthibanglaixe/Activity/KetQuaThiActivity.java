@@ -44,15 +44,15 @@ public class KetQuaThiActivity extends AppCompatActivity {
         txtSoCauDung.setText(valuse.get(i).getDiem());
         int causai = 25-Integer.valueOf(valuse.get(i).getDiem());
         txtcausai.setText(String.valueOf(causai));
-//        if(valuse.get(i).getKetqua().equals("THI DAU")){
-//            Glide.with(getApplicationContext()).load(R.drawable.hinhshdau).into(img);
-//        }
-//        else
-//            Glide.with(getApplicationContext()).load(R.drawable.hinhshtruot).into(img);
+        if(valuse.get(i).getKetqua().equals("THI DAU")){
+            Glide.with(getApplicationContext()).load(R.drawable.hinhshdau).into(img);
+        }
+        else
+            Glide.with(getApplicationContext()).load(R.drawable.hinhshtruot).into(img);
         btnLamLai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //update(ii);
+                update(ii);
                 sendata(ii);
             }
         });

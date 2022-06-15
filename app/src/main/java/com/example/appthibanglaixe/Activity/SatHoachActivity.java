@@ -60,7 +60,7 @@ public class SatHoachActivity extends AppCompatActivity {
     TextView noidungcauhoi;
     AppCompatButton dapan1, dapan2, dapan3, dapan4;
     Timer thoigian;
-    int totalTimeMin = 1;
+    int totalTimeMin = 3;
     int seconds = 0;
     Button btnnext, btnback, btnNopBai;
     private String cauhoinguoidungchon = "";
@@ -118,22 +118,11 @@ public class SatHoachActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "a";
-                checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
+                update(valuse,cauhoinguoidungchon,currentQuestionPosition);
                 dapan1.setBackgroundResource(R.drawable.background_button);
                 dapan2.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan3.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan4.setBackgroundResource(R.drawable.backgroung_cautraloi);
-                diemthi = checkDiem(valuse,currentQuestionPosition);
-                if(checkDLiet(valuse,i) == 0){
-                    if (diemthi > 20){
-                        kq = "THI DAU";
-                    }else kq = "THI TRUOT\n (diem thi nho hon 21)";
-                }
-                int dl = checkDLiet(valuse, i);
-                if(valuse.get(dl).getCaudung().equals(valuse.get(dl).getCauNDChon()));
-                else kq = "THI TRUOT\n(sai cau diem liet)";
-
-                updateBD(String.valueOf(diemthi),kq,i);
 
                 dapan1.setEnabled(false);
                 dapan2.setEnabled(true);
@@ -145,23 +134,11 @@ public class SatHoachActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "b";
-                checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
+                update(valuse,cauhoinguoidungchon,currentQuestionPosition);
                 dapan2.setBackgroundResource(R.drawable.background_button);
                 dapan1.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan3.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan4.setBackgroundResource(R.drawable.backgroung_cautraloi);
-                diemthi = checkDiem(valuse,currentQuestionPosition);
-                if(checkDLiet(valuse,i) == 0){
-                    if (diemthi > 20){
-                        kq = "THI DAU";
-                    }else kq = "THI TRUOT\n (diem thi nho hon 21)";
-                }
-                int dl = checkDLiet(valuse, i);
-                if(valuse.get(dl).getCaudung().equals(valuse.get(dl).getCauNDChon()));
-                else kq = "THI TRUOT\n(sai cau diem liet)";
-
-                updateBD(String.valueOf(diemthi),kq,i);
-
                 dapan1.setEnabled(true);
                 dapan2.setEnabled(false);
                 dapan3.setEnabled(true);
@@ -172,23 +149,11 @@ public class SatHoachActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "c";
-                checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
+                update(valuse,cauhoinguoidungchon,currentQuestionPosition);
                 dapan3.setBackgroundResource(R.drawable.background_button);
                 dapan1.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan2.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan4.setBackgroundResource(R.drawable.backgroung_cautraloi);
-                diemthi = checkDiem(valuse,currentQuestionPosition);
-                if(checkDLiet(valuse,i) == 0){
-                    if (diemthi > 20){
-                        kq = "THI DAU";
-                    }else kq = "THI TRUOT\n(diem thi nho hon 21)";
-                }
-                int dl = checkDLiet(valuse, i);
-                if(valuse.get(dl).getCaudung().equals(valuse.get(dl).getCauNDChon()));
-                else kq = "THI TRUOT\n(sai cau diem liet)";
-
-                updateBD(String.valueOf(diemthi),kq,i);
-
                 dapan3.setEnabled(false);
                 dapan1.setEnabled(true);
                 dapan2.setEnabled(true);
@@ -199,24 +164,11 @@ public class SatHoachActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cauhoinguoidungchon = "d";
-                checkDA(valuse,currentQuestionPosition,cauhoinguoidungchon);
+                update(valuse,cauhoinguoidungchon,currentQuestionPosition);
                 dapan4.setBackgroundResource(R.drawable.background_button);
                 dapan1.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan2.setBackgroundResource(R.drawable.backgroung_cautraloi);
                 dapan3.setBackgroundResource(R.drawable.backgroung_cautraloi);
-                diemthi = checkDiem(valuse,currentQuestionPosition);
-                if(checkDLiet(valuse,i) == 0){
-                    if (diemthi > 20){
-                        kq = "THI DAU";
-                    }else kq = "THI TRUOT\n(diem thi nho hon 21)";
-                }
-                int dl = checkDLiet(valuse, i);
-                if(valuse.get(dl).getCaudung().equals(valuse.get(dl).getCauNDChon()));
-                else kq = "THI TRUOT\n(sai cau diem liet)";
-
-
-                updateBD(String.valueOf(diemthi),kq,i);
-
                 dapan4.setEnabled(false);
                 dapan1.setEnabled(true);
                 dapan2.setEnabled(true);
@@ -226,28 +178,45 @@ public class SatHoachActivity extends AppCompatActivity {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentQuestionPosition  == valuse.size()-1){
+                ArrayList<cauhoi_traloi> val = dulieu.getAllPeople(i);
+                if(currentQuestionPosition  == val.size()-1){
                     Toast.makeText(SatHoachActivity.this, "Nộp bài bạn ơi!!! ", Toast.LENGTH_SHORT).show();
                 }else
                     currentQuestionPosition+=1;
-                chuyencauhoi(valuse);
+                chuyencauhoi(val);
             }
         });
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<cauhoi_traloi> val = dulieu.getAllPeople(i);
                 if(currentQuestionPosition == 0) {
                     Toast.makeText(SatHoachActivity.this, "Câu đầu tiên ", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     currentQuestionPosition-=1;
-                    trolai(valuse);
+                    trolai(val);
                 }
             }
         });
         btnNopBai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<cauhoi_traloi> val = dulieu.getAllPeople(i);
+                for(int a = 0 ; a<val.size() ; a++){
+                    diemthi = checkDiem(val,a);
+                    if(checkDLiet(val,i, a) == 0){
+                        if (diemthi > 20){
+                            kq = "THI DAU";
+                        }else kq = "THI TRUOT\n(diem thi nho hon 21)";
+                    }
+                    int dl = checkDLiet(val, i, a);
+                    if(val.get(dl).getCaudung().equals(val.get(dl).getCauNDChon()));
+                    else kq = "THI TRUOT\n(sai cau diem liet)";
+                }
+                String diem = String.valueOf(diemthi);
+                updateBD(diem,kq,i);
+
                 sendata(i);
             }
         });
@@ -374,18 +343,15 @@ public class SatHoachActivity extends AppCompatActivity {
             }
         }
     }
-    public void checkDA(ArrayList<cauhoi_traloi> valuse,int i,String cauhoinguoidungchon1){
-        update(valuse,cauhoinguoidungchon1,i);
-    }
     private int checkDiem(ArrayList<cauhoi_traloi> valuse,int i){
         if(valuse.get(i).getCaudung().equals(valuse.get(i).getCauNDChon())){
             diemthi+=1;
         }
         return diemthi;
     }
-    private int checkDLiet(ArrayList<cauhoi_traloi> valuse,int i){
+    private int checkDLiet(ArrayList<cauhoi_traloi> valuse,int i, int j){
         if(valuse.get(i).getCauliet().equals("1")){
-            if(valuse.get(i).getCaudung().equals(valuse.get(i).getCauNDChon()))
+            if(valuse.get(j).getCaudung().equals(valuse.get(j).getCauNDChon()))
                 return 0;
             else
                 return i;
@@ -396,13 +362,14 @@ public class SatHoachActivity extends AppCompatActivity {
         ContentValues val = new ContentValues();
         val.put("CauNDChon",cauNDC);
         dulieu.Update(DbContract.MenuEntry.TABLE_NAME,val, " _id = "+valuse.get(i).getID(),null);
-
+        dulieu.close1();
     }
-    private  void updateBD(String socau, String kq ,int i){
+    private void updateBD(String socau, String kq ,int i){
         ContentValues val = new ContentValues();
         val.put("diem", socau);
         val.put("ketqua",kq);
         dulieu.Update(DbContract.BoDe.TABLE_NAMEBODE, val, "bodeso = " +i,null);
+        dulieu.close1();
     }
     private int laydulieu() {
         Intent intent = getIntent();
@@ -411,21 +378,40 @@ public class SatHoachActivity extends AppCompatActivity {
     }
 
     private void Xulithoigian(TextView timer) {
+        int ii = laydulieu();
         thoigian = new Timer();
         thoigian.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if(seconds == 0){
-                    totalTimeMin--;
-                    seconds = 59;
-
-                }else if(seconds == 0 && totalTimeMin == 0){
-                    thoigian.purge();
-                    thoigian.cancel();
+                if(totalTimeMin > 0){
+                    if(seconds > 0)
+                        seconds --;
+                    else if(seconds == 0){
+                        totalTimeMin --;
+                        seconds = 59;
+                    }
                 }else {
-                    seconds --;
-                    if(seconds == 0){
+                    if(seconds > 0){
+                        seconds --;
+                    }else {
+                        thoigian.purge();
                         thoigian.cancel();
+                        ArrayList<cauhoi_traloi> val = dulieu.getAllPeople(ii);
+                        for(int a = 0 ; a<val.size() ; a++){
+                            diemthi = checkDiem(val,a);
+                            if(checkDLiet(val,ii, a) == 0){
+                                if (diemthi > 20){
+                                    kq = "THI DAU";
+                                }else kq = "THI TRUOT\n(diem thi nho hon 21)";
+                            }
+                            int dl = checkDLiet(val, ii, a);
+                            if(val.get(dl).getCaudung().equals(val.get(dl).getCauNDChon()));
+                            else kq = "THI TRUOT\n(sai cau diem liet)";
+                        }
+                        String diem = String.valueOf(diemthi);
+                        updateBD(diem,kq,ii);
+                        sendata(ii);
+                        finish();
                     }
                 }
                 runOnUiThread(new Runnable() {

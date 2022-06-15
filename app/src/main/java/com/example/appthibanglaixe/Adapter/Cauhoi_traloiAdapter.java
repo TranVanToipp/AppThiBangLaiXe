@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class Cauhoi_traloiAdapter extends BaseAdapter {
     Activity activity;
+    String cau;
     ArrayList<bode>arrayList;
 
     public Cauhoi_traloiAdapter(Activity activity, ArrayList<bode> arrayList) {
@@ -64,8 +65,11 @@ public class Cauhoi_traloiAdapter extends BaseAdapter {
             viewHolder = (Cauhoi_traloiAdapter.ViewHolder) convertView.getTag();
         }
         bode bd = (bode) getItem(position);
-        viewHolder.txtcau.setText("Câu 0/"+bd.getSocau());
-        viewHolder.txtbode.setText("Bộ đề"+ " "+bd.getSobode());
+        if(bd.getDiem().equals(""))
+            cau = "0";
+        else cau = bd.getDiem();
+        viewHolder.txtcau.setText("Đúng: "+cau+"/"+bd.getSocau()+" câu");
+        viewHolder.txtbode.setText("Bộ đề: "+bd.getSobode());
 
         return convertView;
     }

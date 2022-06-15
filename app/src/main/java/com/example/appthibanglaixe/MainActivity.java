@@ -4,14 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.example.appthibanglaixe.Activity.Tab_practice_Fragment;
 import com.example.appthibanglaixe.Adapter.ViewPageAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mViewPage.setAdapter(viewPageAdapter);
         XuliTabMenuHome();
-
     }
 
     private void XuLiToolbar() {
@@ -42,6 +43,19 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toobar, R.string.nav_drawer_open, R.string.nav_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    public boolean onNavigationItermSelected(MenuItem item){
+        int id = item.getItemId();
+        if(id == R.id.mh_menu_homepage){
+
+        }else if(id == R.id.mh_menu_test){
+
+        }else if(id == R.id.mh_menu_practice){
+
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 
@@ -68,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                         //menu tab Tôi:<item android:id="@+id/mh_menu_uses" android:title="Tôi"
                     //        android:icon="@drawable/ic_baseline_person_24"/>
-                    case 3:
-                        mbottomNavigationView.getMenu().findItem(R.id.mh_menu_uses).setChecked(true);
-                        break;
+//                    case 3:
+//                        mbottomNavigationView.getMenu().findItem(R.id.mh_menu_uses).setChecked(true);
+//                        break;
                 }
             }
 
@@ -93,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.mh_menu_practice:
                     mViewPage.setCurrentItem(2);
                     break;
-                case R.id.mh_menu_uses:
-                    mViewPage.setCurrentItem(3);
-                    break;
+//                case R.id.mh_menu_uses:
+//                    mViewPage.setCurrentItem(3);
+//                    break;
             }
             return true;
         }
@@ -105,5 +119,21 @@ public class MainActivity extends AppCompatActivity {
     private void Anhxa() {
         mViewPage = findViewById(R.id.view_pager);
         mbottomNavigationView = findViewById(R.id.bottom_navigation);
+    }
+
+    long countTime;
+    Toast toast;
+    @Override
+    public void onBackPressed() {
+        if(countTime+2000>System.currentTimeMillis()){
+            toast.cancel();
+            super.onBackPressed();
+            return;
+        }
+        else{
+            toast = Toast.makeText(this, "Nhấn Back 1 lần nữa để thoát", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        countTime = System.currentTimeMillis();
     }
 }

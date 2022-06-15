@@ -59,7 +59,16 @@ public class TimKiemAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
             cauhoi_traloi ch = (cauhoi_traloi) getItem(position);
             viewHolder.txtnoidung.setText(ch.getNoidungcauhoi());
-            viewHolder.txtdapandung.setText("Đáp án"+ " "+ch.getCaudung()+" "+ "đúng");
+            if(ch.getCaudung().equals("a")){
+                viewHolder.txtdapandung.setText("Đáp án: "+ch.getA());
+            }else if(ch.getCaudung().equals("b")){
+                viewHolder.txtdapandung.setText("Đáp án: "+ch.getB());
+            }else if(ch.getCaudung().equals("c")){
+                viewHolder.txtdapandung.setText("Đáp án: "+ch.getC());
+            }else if(ch.getCaudung().equals("d")){
+                viewHolder.txtdapandung.setText("Đáp án: "+ch.getD());
+            }
+            else viewHolder.txtdapandung.setText("Chưa cập nhật!");
 
         }
         return convertView;

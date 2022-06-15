@@ -18,11 +18,11 @@ import java.util.Map;
 
 public class MeoThiAdapter extends BaseExpandableListAdapter {
     Activity activity;
-    private ArrayList<meothiGroup> mListGroup;
-    private Map<meothiGroup, ArrayList<meothiIterm>> mListIterm;
+    private List<meothiGroup> mListGroup;
+    private Map<meothiGroup, List<meothiIterm>> mListIterm;
 
 
-    public MeoThiAdapter(Activity activity, ArrayList<meothiGroup> mListGroup, Map<meothiGroup, ArrayList<meothiIterm>> mListIterm) {
+    public MeoThiAdapter(Activity activity, List<meothiGroup> mListGroup, Map<meothiGroup, List<meothiIterm>> mListIterm) {
         this.activity = activity;
         this.mListGroup = mListGroup;
         this.mListIterm = mListIterm;

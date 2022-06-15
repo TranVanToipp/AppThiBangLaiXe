@@ -184,10 +184,10 @@ public class Tab_Home_Fragment extends Fragment {
     private void ActionViewFlipper() {
         List<String> mangquangcao = new ArrayList<>();
         //mangquangcao.add("https://images.search.yahoo.com/search/images;_ylt=Awr9Iks6SYtiVF8A5ZNXNyoA;_ylu=Y29sbwNncTEEcG9zAzEEdnRpZAMEc2VjA3BpdnM-?p=h%C3%ACnh+%E1%BA%A3nh+lu%E1%BA%ADt+giao+th%C3%B4ng+%C4%91%C6%B0%E1%BB%9Dng+b%E1%BB%99&fr2=piv-web#id=79&iurl=https%3A%2F%2Ftinbanxe.vn%2Fuploads%2Fcar%2Fbien-bao-giao-thong.jpg&action=click");
-        mangquangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-Le-hoi-phu-kien-800-300.png");
-        mangquangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-HC-Tra-Gop-800-300.png");
-        mangquangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg");
-
+        mangquangcao.add("https://vn-live-01.slatic.net/p/c2b0e613dda5f5da2f547cfd1207be5c.jpg");
+        mangquangcao.add("https://hoclaixe12h.com/wp-content/uploads/2021/03/bai-thi-thuc-hanh-bang-lai-xe-may-a1.jpg");
+        mangquangcao.add("https://luatsuhoanggia.vn/wp-content/uploads/2020/11/Lu%E1%BA%ADt-Giao-th%C3%B4ng-%C4%91%C6%B0%E1%BB%9Dng-b%E1%BB%99-2008.jpg");
+        mangquangcao.add("https://danchoioto.vn/wp-content/uploads/2020/06/cac-bien-bao-giao-thong.jpg");
         for (int i = 0; i <  mangquangcao.size(); i++){
             ImageView imageView = new ImageView(getActivity().getApplicationContext());
             Glide.with(getActivity().getApplicationContext()).load(mangquangcao.get(i)).into(imageView);

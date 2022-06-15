@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -485,6 +486,8 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 person.setCauliet(cursor.getString(9));
                 person.setLoaicauhoi(cursor.getString(10));
                 person.setBode(cursor.getString(11));
+                person.setCauNDChon(cursor.getString(12));
+                person.setNguoidunglythuet(cursor.getString(13));
 
                 listPerson.add(person);
             } while (cursor.moveToNext());
@@ -507,8 +510,25 @@ public class sqDuLieu extends SQLiteOpenHelper {
           whereArgs: mạng các giá trị ứng với whereClause.
           return số bản ghi đc cập nhật
         */
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.update(table,values,whereClause,whereArgs);
+        open1();
+        return db.update(table,values,whereClause,whereArgs);
+    }
+
+    public void open1() {
+        try {
+            db = getWritableDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void close1() {
+        if (db != null && db.isOpen()) {
+            try {
+                db.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

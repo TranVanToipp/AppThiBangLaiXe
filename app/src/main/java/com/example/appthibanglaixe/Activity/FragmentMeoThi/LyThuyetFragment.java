@@ -37,9 +37,9 @@ import java.util.Map;
  */
 public class LyThuyetFragment extends Fragment {
     private ExpandableListView expandableListView;
-    ArrayList<meothiGroup> mListGroup;
+    List<meothiGroup> mListGroup;
 //    ArrayList<meothiIterm> Itermlist;
-     Map<meothiGroup, ArrayList<meothiIterm>> mListIterm;
+     Map<meothiGroup, List<meothiIterm>> mListIterm;
     MeoThiAdapter meothiAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -133,30 +133,28 @@ public class LyThuyetFragment extends Fragment {
         return view;
     }
 
-    private Map<meothiGroup, ArrayList<meothiIterm>> getListIterm() {
-        Map<meothiGroup, ArrayList<meothiIterm>> listMap = new HashMap<>();
+    private Map<meothiGroup, List<meothiIterm>> getListIterm() {
+        Map<meothiGroup, List<meothiIterm>> listMap = new HashMap<>();
 
             meothiGroup meothiGroup = new meothiGroup(1, "khái niệm và quy tăc");
-            meothiGroup meothiGroup1 = new meothiGroup(1, "Hệ thống biển báo ");
-            meothiGroup meothiGroup2 = new meothiGroup(1, "sa hình ");
-            ArrayList<meothiIterm> itermiterm = new ArrayList<>();
+            meothiGroup meothiGroup1 = new meothiGroup(2, "Hệ thống biển báo ");
+            meothiGroup meothiGroup2 = new meothiGroup(3, "sa hình ");
+            List<meothiIterm> Iterm1 = new ArrayList<>();
 
-            itermiterm.add(new meothiIterm(1, "Mấy câu hỏi khái niệm hiểu như thế nào"));
-            itermiterm.add(new meothiIterm(2, "Mấy câu hỏi khái niệm hiểu như thế nào"));
-            itermiterm.add(new meothiIterm(3, "Mấy câu hỏi khái niệm hiểu như thế nào"));
-            ArrayList<meothiIterm>itermiterm2 = new ArrayList<>();
-            itermiterm.add(new meothiIterm(4, "chú ý để hỏi bài 1 đằng đáp án khác"));
-            itermiterm.add(new meothiIterm(5, "chú ý để hỏi bài 1 đằng đáp án khác"));
-            itermiterm.add(new meothiIterm(6, "chú ý để hỏi bài 1 đằng đáp án khác"));
-            ArrayList<meothiIterm>itermiterm3 = new ArrayList<>();
-            itermiterm.add(new meothiIterm(7, "chú ý quan sát"));
-            itermiterm.add(new meothiIterm(8, "không làm gì cả"));
-            listMap.put(meothiGroup, itermiterm);
-            listMap.put(meothiGroup1, itermiterm2);
-            listMap.put(meothiGroup2, itermiterm3);
+        Iterm1.add(new meothiIterm(1, "Mấy câu hỏi khái niệm hiểu như thế nào"));
+        Iterm1.add(new meothiIterm(2, "Mấy câu hỏi khái niệm hiểu như thế nào"));
+        Iterm1.add(new meothiIterm(3, "Mấy câu hỏi khái niệm hiểu như thế nào"));
+            List<meothiIterm>Iterm2 = new ArrayList<>();
+        Iterm2.add(new meothiIterm(4, "chú ý để hỏi bài 1 đằng đáp án khác"));
+        Iterm2.add(new meothiIterm(5, "chú ý để hỏi bài 1 đằng đáp án khác"));
+        Iterm2.add(new meothiIterm(6, "chú ý để hỏi bài 1 đằng đáp án khác"));
+            List<meothiIterm>Iterm3 = new ArrayList<>();
+        Iterm3.add(new meothiIterm(7, "chú ý quan sát"));
+        Iterm3.add(new meothiIterm(8, "không làm gì cả"));
+            listMap.put(meothiGroup, Iterm1);
+            listMap.put(meothiGroup1, Iterm2);
+            listMap.put(meothiGroup2, Iterm3);
             return listMap;
-
-
     }
 
     private void XuLiJsonLyThuyet() {

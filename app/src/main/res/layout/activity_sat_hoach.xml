@@ -68,7 +68,7 @@
         android:src="@drawable/icon"
 
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+        android:layout_height="130dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ftt_txt_cautraloi1"
@@ -137,7 +137,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:background="@drawable/ic_baseline_trai"
-                android:textColor="#fff"
                 tools:ignore="SpeakableTextPresentCheck" />
             <TextView
                 android:textSize="35dp"

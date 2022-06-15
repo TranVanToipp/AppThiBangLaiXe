@@ -1,7 +1,18 @@
 package com.example.appthibanglaixe.uliti;
 
-public class Server {
-    public static String localhost = "192.168.1.9";
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.appthibanglaixe.MainActivity;
+
+import java.util.ArrayList;
+
+public class Server  {
+
+//    public static String ip(){
+//        ArrayList<IPServer> valuse = MainActivity.ipServerArrayList();
+//        return valuse.get(0).getIP();
+//    }
+    public static String localhost = "192.168.1.8";
     public static String Duongdancauhoi_dapan = "http://"+ localhost +"/filexuliAPI/getcauhoi_traloi.php";
     public static String Duongdanbienbao1 = "http://"+ localhost +"/filexuliAPI/getbienbao1.php";
     public static String Duongdanbienbao2 = "http://"+ localhost +"/filexuliAPI/getbienbao2.php";

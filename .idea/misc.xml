@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/bacground_dialog_tracuuluat.xml" value="0.1445" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/bacground_maucaulithuyetsai.xml" value="0.143" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_button.xml" value="0.124" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_cauhoi.xml" value="0.124" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/background_home.xml" value="0.125" />
@@ -18,7 +19,7 @@
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/drawable/taoduongvienlayout.xml" value="0.1245" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_bien_bao.xml" value="0.22" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_hoc_ly_thuyet.xml" value="0.25" />
-        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_ket_qua_thi.xml" value="0.1328125" />
+        <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_ket_qua_thi.xml" value="0.2" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_kiem_tra.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_luyen_tap.xml" value="0.15217391304347827" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/layout/activity_main.xml" value="0.12" />
