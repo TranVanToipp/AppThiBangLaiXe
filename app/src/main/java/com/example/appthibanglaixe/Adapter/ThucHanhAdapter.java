@@ -1,7 +1,6 @@
 package com.example.appthibanglaixe.Adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,25 +9,23 @@ import android.widget.TextView;
 
 import com.example.appthibanglaixe.R;
 import com.example.appthibanglaixe.model.itemMeo;
+import com.example.appthibanglaixe.model.itemTH;
 import com.example.appthibanglaixe.model.meothiGroup;
-import com.example.appthibanglaixe.model.meothiIterm;
+import com.example.appthibanglaixe.model.thuchanhGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MeoThiAdapter extends BaseExpandableListAdapter {
+public class ThucHanhAdapter extends BaseExpandableListAdapter {
     Activity activity;
-    private List<meothiGroup> mListGroup;
-    private Map<meothiGroup, List<itemMeo>> mListIterm;
+    private List<thuchanhGroup> mListGroup;
+    private Map<thuchanhGroup, List<itemTH>> mListIterm;
 
-
-    public MeoThiAdapter(Activity activity, List<meothiGroup> mListGroup, Map<meothiGroup, List<itemMeo>> mListIterm) {
+    public ThucHanhAdapter(Activity activity, List<thuchanhGroup> mListGroup, Map<thuchanhGroup, List<itemTH>> mListIterm) {
         this.activity = activity;
         this.mListGroup = mListGroup;
         this.mListIterm = mListIterm;
     }
-
     @Override
     public int getGroupCount() {
         if(mListGroup != null){
@@ -58,13 +55,13 @@ public class MeoThiAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getGroupId(int groupPosition) {
-        meothiGroup meothiGroup = mListGroup.get(groupPosition);
+        thuchanhGroup meothiGroup = mListGroup.get(groupPosition);
         return meothiGroup.getId();
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        itemMeo meothiIterm = mListIterm.get(mListGroup.get(groupPosition)).get(childPosition);
+        itemTH meothiIterm = mListIterm.get(mListGroup.get(groupPosition)).get(childPosition);
         return meothiIterm.getId();
     }
 
@@ -76,10 +73,10 @@ public class MeoThiAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if(convertView == null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.meothi_group, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.thuchanh_group, parent, false);
         }
-        TextView txtgroup = convertView.findViewById(R.id.mg_tvmeothi_group);
-        meothiGroup meothiGroup = mListGroup.get(groupPosition);
+        TextView txtgroup = convertView.findViewById(R.id.mg_tvthuchanh_group);
+        thuchanhGroup meothiGroup = mListGroup.get(groupPosition);
         txtgroup.setText(meothiGroup.getLoai());
         return convertView;
     }
@@ -87,16 +84,16 @@ public class MeoThiAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if(convertView == null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.meothi_iterm, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.thuchanh_iterm, parent, false);
         }
-        TextView txtiterm = convertView.findViewById(R.id.mi_tvmeothi_iterm);
-        itemMeo meothiIterm = mListIterm.get(mListGroup.get(groupPosition)).get(childPosition);
+        TextView txtiterm = convertView.findViewById(R.id.mi_tvthuchanh_iterm);
+        itemTH meothiIterm = mListIterm.get(mListGroup.get(groupPosition)).get(childPosition);
         txtiterm.setText(meothiIterm.getNoidung());
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+        return false;
     }
 }

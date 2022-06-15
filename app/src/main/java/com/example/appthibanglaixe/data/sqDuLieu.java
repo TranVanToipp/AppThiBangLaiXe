@@ -17,6 +17,7 @@ import com.example.appthibanglaixe.entity.modify;
 import com.example.appthibanglaixe.model.bode;
 import com.example.appthibanglaixe.model.cauhoi_traloi;
 import com.example.appthibanglaixe.model.lythuyet;
+import com.example.appthibanglaixe.model.meothiIterm;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,15 +85,23 @@ public class sqDuLieu extends SQLiteOpenHelper {
                 DbContract.BoDe.COLUM_DIEM+" TEXT, "+
                 DbContract.BoDe.COLUM_KQ+" TEXT " +");";
 
+        final String SQL_CREATE_BUGS_TABLE_MEOTHI = "CREATE TABLE "+DbContract.MeoThi.TABLE_NAMEMEOTHI+" ("+
+                DbContract.MeoThi._ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                DbContract.MeoThi.COLUM_IDMEOTHI+" TEXT, "+
+                DbContract.MeoThi.COLUM_NDMEOTHI+" TEXT, "+
+                DbContract.MeoThi.COLUM_LOAI+" TEXT "+");";
+
         db.execSQL(SQL_CREATE_BUGS_TABLE);
         db.execSQL(SQL_CREATE_BUGS_TABLE1);
         db.execSQL(SQL_CREATE_BUGS_TABLE_BODE);
+        db.execSQL(SQL_CREATE_BUGS_TABLE_MEOTHI);
         Log.d(TAG, "Database Created Successfully" );
 
         try {
             readDataToDb(db);
             readDataToDb1(db);
             readDataToDb_BoDe(db);
+            readDataToDb_MeoThi(db);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -217,6 +226,35 @@ public class sqDuLieu extends SQLiteOpenHelper {
         }
 
     }
+    private void readDataToDb_MeoThi(SQLiteDatabase db) throws IOException , JSONException{
+        final String MNU_IDMEOTHI = "id_meo";
+        final String MNU_NDMEOTHI = "nd_meo";
+        final String MNU_LOAI = "loai";
+        try{
+            String jsonDataString = readJsonDataFromFile_MeoThi();
+            JSONArray menuItemsJsonArray = new JSONArray(jsonDataString);
+            for (int i = 0 ; i < menuItemsJsonArray.length(); i++){
+                String idMeo, ndMeo,loai;
+                JSONObject menuItemJsonObject = menuItemsJsonArray.getJSONObject(i);
+                idMeo = menuItemJsonObject.getString(MNU_IDMEOTHI);
+                ndMeo = menuItemJsonObject.getString(MNU_NDMEOTHI);
+                loai = menuItemJsonObject.getString(MNU_LOAI);
+                ContentValues menuValues = new ContentValues();
+                menuValues.put(DbContract.MeoThi.COLUM_IDMEOTHI,idMeo);
+                menuValues.put(DbContract.MeoThi.COLUM_NDMEOTHI,ndMeo);
+                menuValues.put(DbContract.MeoThi.COLUM_LOAI,loai);
+                db.insert(DbContract.MeoThi.TABLE_NAMEMEOTHI,null,menuValues);
+                Log.d(TAG, "Inserted Successfully " + menuValues );
+            }
+
+        }catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+            e.printStackTrace();
+        }
+    }
+
+
+
     private void readDataToDb_BoDe(SQLiteDatabase db) throws IOException, JSONException {
 
         final String MNU_BDSo = "bd";
@@ -318,7 +356,27 @@ public class sqDuLieu extends SQLiteOpenHelper {
         }
         return new String(builder);
     }
+    private String readJsonDataFromFile_MeoThi() throws IOException {
+        InputStream inputStream = null;
+        StringBuilder builder = new StringBuilder();
 
+        try {
+            String jsonDataString = null;
+            inputStream = mResources.openRawResource(R.raw.menu_meothi);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(inputStream, "UTF-8"));
+            while ((jsonDataString = bufferedReader.readLine()) != null) {
+                builder.append(jsonDataString);
+            }
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+
+        return new String(builder);
+
+    }
 
     public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getAllPeople(int bode) {
         ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> listPerson = new ArrayList<>();
@@ -463,6 +521,28 @@ public class sqDuLieu extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return lstlythuyet;
+    }
+
+    public ArrayList<com.example.appthibanglaixe.model.meothiIterm> getMeoTHi(String idMeo,String loai){
+        ArrayList<com.example.appthibanglaixe.model.meothiIterm> listPerson = new ArrayList<>();
+        String selectQuery = "SELECT * FROM "+ DbContract.MeoThi.TABLE_NAMEMEOTHI+" WHERE "
+                +DbContract.MeoThi.COLUM_IDMEOTHI +"= '"+idMeo+"' AND "+DbContract.MeoThi.COLUM_LOAI + "='"+loai+"'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            do{
+                meothiIterm meothiIterm = new meothiIterm();
+                meothiIterm.setId(cursor.getInt(0));
+                meothiIterm.setId_meothi(cursor.getString(1));
+                meothiIterm.setNoidung(cursor.getString(2));
+                meothiIterm.setLoai(cursor.getString(3));
+
+                listPerson.add(meothiIterm);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return listPerson;
     }
 
     public ArrayList<com.example.appthibanglaixe.model.cauhoi_traloi> getAllCauhoi(int loai) {

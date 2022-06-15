@@ -18,6 +18,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appthibanglaixe.Adapter.MeoThiAdapter;
 import com.example.appthibanglaixe.R;
+import com.example.appthibanglaixe.data.sqDuLieu;
+import com.example.appthibanglaixe.model.itemMeo;
 import com.example.appthibanglaixe.model.meothiGroup;
 import com.example.appthibanglaixe.model.meothiIterm;
 import com.example.appthibanglaixe.uliti.Server;
@@ -39,7 +41,7 @@ public class LyThuyetFragment extends Fragment {
     private ExpandableListView expandableListView;
     List<meothiGroup> mListGroup;
 //    ArrayList<meothiIterm> Itermlist;
-     Map<meothiGroup, List<meothiIterm>> mListIterm;
+     Map<meothiGroup, List<itemMeo>> mListIterm;
     MeoThiAdapter meothiAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,108 +89,32 @@ public class LyThuyetFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ly_thuyet, container, false);
         expandableListView = view.findViewById(R.id.expandablelistview);
-//        //XuLiJsonLyThuyet();
-//        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanlytuyet, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//                if(response != null){
-//                    int idmeo = 0;
-//                    String nd_thi = "";
-//                    String loai = "";
-//
-//                    for(int i = 0; i < response.length(); i++){
-//                        try {
-//                            JSONObject jsonObject = response.getJSONObject(i);
-//                            idmeo = jsonObject.getInt("idmeothi");
-//                            nd_thi = jsonObject.getString("noidungmeothi");
-//                            loai = jsonObject.getString("loai");
-//                            mListGroup.add(new meothiGroup(idmeo,loai));
-//                            //Itermlist.add(new meothiIterm(idmeo, nd_thi));
-//                            Itermlist.add(new meothiIterm(idmeo, nd_thi));
-//                            meothiAdapter.notifyDataSetChanged();
-//                        }catch (Exception e){
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        requestQueue.add(jsonArrayRequest);
-//        mListGroup = new ArrayList<>();
-//        Itermlist = new ArrayList<>();
-//        itermmeo = (ArrayList<meothiIterm>) mListIterm;
-//        meothiIterm = itermmeo;
-        mListIterm = getListIterm();
-        ///itemlisst = mlisstiterm
+        sqDuLieu duLieu = new sqDuLieu(getActivity());
+        mListIterm = getListIterm(duLieu);
         mListGroup = new ArrayList<>(mListIterm.keySet());
         meothiAdapter = new MeoThiAdapter(getActivity(), mListGroup, mListIterm);
         expandableListView.setAdapter(meothiAdapter);
         return view;
     }
 
-    private Map<meothiGroup, List<meothiIterm>> getListIterm() {
-        Map<meothiGroup, List<meothiIterm>> listMap = new HashMap<>();
-
+    private Map<meothiGroup, List<itemMeo>> getListIterm( sqDuLieu duLieu) {
+        Map<meothiGroup, List<itemMeo>> listMap = new HashMap<>();
+        ArrayList<meothiIterm> values = duLieu.getMeoTHi("1","1");
             meothiGroup meothiGroup = new meothiGroup(1, "khái niệm và quy tăc");
             meothiGroup meothiGroup1 = new meothiGroup(2, "Hệ thống biển báo ");
             meothiGroup meothiGroup2 = new meothiGroup(3, "sa hình ");
-            List<meothiIterm> Iterm1 = new ArrayList<>();
+            List<itemMeo> Iterm1 = new ArrayList<>();
 
-        Iterm1.add(new meothiIterm(1, "Mấy câu hỏi khái niệm hiểu như thế nào"));
-        Iterm1.add(new meothiIterm(2, "Mấy câu hỏi khái niệm hiểu như thế nào"));
-        Iterm1.add(new meothiIterm(3, "Mấy câu hỏi khái niệm hiểu như thế nào"));
-            List<meothiIterm>Iterm2 = new ArrayList<>();
-        Iterm2.add(new meothiIterm(4, "chú ý để hỏi bài 1 đằng đáp án khác"));
-        Iterm2.add(new meothiIterm(5, "chú ý để hỏi bài 1 đằng đáp án khác"));
-        Iterm2.add(new meothiIterm(6, "chú ý để hỏi bài 1 đằng đáp án khác"));
-            List<meothiIterm>Iterm3 = new ArrayList<>();
-        Iterm3.add(new meothiIterm(7, "chú ý quan sát"));
-        Iterm3.add(new meothiIterm(8, "không làm gì cả"));
+        Iterm1.add(new itemMeo(1,values.get(0).getNoidung()));
+            List<itemMeo>Iterm2 = new ArrayList<>();
+        ArrayList<meothiIterm> values2 = duLieu.getMeoTHi("1","2");
+        Iterm2.add(new itemMeo(2, values2.get(0).getNoidung()));
+            List<itemMeo>Iterm3 = new ArrayList<>();
+            ArrayList<meothiIterm> values3 = duLieu.getMeoTHi("1","3");
+        Iterm3.add(new itemMeo(3, values3.get(0).getNoidung()));
             listMap.put(meothiGroup, Iterm1);
             listMap.put(meothiGroup1, Iterm2);
             listMap.put(meothiGroup2, Iterm3);
             return listMap;
-    }
-
-    private void XuLiJsonLyThuyet() {
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.Duongdanlytuyet, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if(response != null){
-                    int idmeo = 0;
-                    String nd_thi = "";
-                    String loai = "";
-
-                    for(int i = 0; i < response.length(); i++){
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            idmeo = jsonObject.getInt("idmeothi");
-                            nd_thi = jsonObject.getString("noidungmeothi");
-                            loai = jsonObject.getString("loai");
-                            mListGroup.add(new meothiGroup(idmeo,loai));
-//                            Log.d("index1", arrayList.get(0).getLoai());
-
-                            meothiAdapter.notifyDataSetChanged();
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
     }
 }

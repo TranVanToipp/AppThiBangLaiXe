@@ -1,10 +1,10 @@
 package com.example.appthibanglaixe.model;
 
-public class meothiIterm {
+public class thuchanhIterm {
     private int id;
     private String id_meothi,noidung,loai;
 
-    public meothiIterm(int id, String id_meothi, String noidung, String loai) {
+    public thuchanhIterm(int id, String id_meothi, String noidung, String loai) {
         this.id = id;
         this.id_meothi = id_meothi;
         this.noidung = noidung;
@@ -27,7 +27,7 @@ public class meothiIterm {
         this.loai = loai;
     }
 
-    public meothiIterm(){
+    public thuchanhIterm(){
 
     }
 

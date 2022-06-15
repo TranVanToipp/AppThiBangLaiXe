@@ -36,4 +36,10 @@ public class DbContract {
         public static final String COLUM_DIEM = "diem";
         public static final String COLUM_KQ = "ketqua";
     }
+    public static final class MeoThi implements BaseColumns{
+        public static final String TABLE_NAMEMEOTHI = "meothi";
+        public static final String COLUM_IDMEOTHI = "id_meothi";
+        public static final String COLUM_NDMEOTHI = "nd_meothi";
+        public static final String COLUM_LOAI = "loai";
+    }
 }

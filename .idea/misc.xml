@@ -49,6 +49,12 @@
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu__homepage.xml" value="0.20416666666666666" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu_luyentap.xml" value="0.1" />
         <entry key="..\:/BaiThucHanhAndroid/AppThiBangLaiXe/app/src/main/res/menu/menu_toobar_nav.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/luong/AndroidStudioProjects/AppThiBangLaiXe/app/src/main/res/layout/fragment_ly_thuyet.xml" value="0.3625" />
+        <entry key="..\:/Users/luong/AndroidStudioProjects/AppThiBangLaiXe/app/src/main/res/layout/fragment_thuc_hanh.xml" value="0.3625" />
+        <entry key="..\:/Users/luong/AndroidStudioProjects/AppThiBangLaiXe/app/src/main/res/layout/meothi_group.xml" value="0.3625" />
+        <entry key="..\:/Users/luong/AndroidStudioProjects/AppThiBangLaiXe/app/src/main/res/layout/meothi_iterm.xml" value="0.3625" />
+        <entry key="..\:/Users/luong/AndroidStudioProjects/AppThiBangLaiXe/app/src/main/res/layout/thuchanh_group.xml" value="0.3625" />
+        <entry key="..\:/Users/luong/AndroidStudioProjects/AppThiBangLaiXe/app/src/main/res/layout/thuchanh_iterm.xml" value="0.3614583333333333" />
       </map>
     </option>
   </component>
